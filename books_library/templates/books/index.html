@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/books/index.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+    <!-- TODO: Complete the search feature-->
+    <form class="row">
+        {% csrf_token %}
+        <div class="col-sm-6">
+            <div class="input-group" id="search-bar">
+                <input type="text" class="form-control" placeholder="Search for...">
+                <span class="input-group-btn"><button class="btn btn-secondary" type="submit">Go!</button></span>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="row">
+        {% for book in books %}
+            <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
+                <div class="card row">
+                    <div class="col-sm-4 col-md-4">
+                        <img src="{{ book.thumbnail.url }}" alt="{{ book.title }}"
+                             height="240">
+                    </div>
+                    <div class="col-sm-9 col-md-7 ">
+                        <div>
+                            <h4><a href="{% url 'books:detail' book.id %}"
+                                   class="card-link">{{ book.title }}</a></h4>
+                            <p class="card-text">{{ book.description|truncatechars:400 }}</p>
+                            <a href="{{ book.link_to_pdf }}" class="btn btn-primary">Start Reading</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if books.has_previous %}
+                <a class="btn" href="?page={{ books.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ books.number }} of {{ books.paginator.num_pages }}.
+            </span>
+
+            {% if books.has_next %}
+                <a class="btn" href="?page={{ books.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+
+
+{% endblock %}
