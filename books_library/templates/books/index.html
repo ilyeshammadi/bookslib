@@ -31,10 +31,11 @@
                     </div>
                     <div class="col-sm-9 col-md-7 ">
                         <div>
-                            <h4><a href="{% url 'books:detail' book.id %}"
+                            <h4><a href="{% url 'books:detail' book.slug %}"
                                    class="card-link">{{ book.title }}</a></h4>
-                            <p class="card-text">{{ book.description|truncatechars:400 }}</p>
+                            <p class="card-text">{{ book.description|truncatechars:200 }}</p>
                             <a href="{{ book.link_to_pdf }}" class="btn btn-primary">Start Reading</a>
+                            <a href="{% url 'books:update' book %}" class="btn btn-primary">Update</a>
                         </div>
                     </div>
                 </div>

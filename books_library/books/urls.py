@@ -11,9 +11,19 @@ urlpatterns = [
         view=views.index,
         name='index'
     ),
-url(
-        regex=r'^(?P<id>\d+)$',
-        view=views.detail,
+    url(
+        regex=r'^detail/(?P<slug>\S+)/$',
+        view=views.BookDetailView.as_view(),
         name='detail'
+    ),
+    url(
+        regex=r'^create/$',
+        view=views.BookCreateView.as_view(),
+        name='create'
+    ),
+    url(
+        regex=r'^update/(?P<slug>\S+)/$',
+        view=views.BookUpdateView.as_view(),
+        name='update'
     ),
 ]

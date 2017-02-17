@@ -2,7 +2,9 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, get_object_or_404
 
-# Create your views here.
+from django.views.generic import CreateView, UpdateView, DetailView
+
+from .forms import BookForm
 from .models import Book
 
 # TODO: Add search feature here
@@ -23,6 +25,13 @@ def index(request):
     return render(request, 'books/index.html', {'books': books})
 
 
-def detail(request, id):
-    book = get_object_or_404(Book, pk=id)
-    return render(request, 'books/detail.html', {'book' : book})
+class BookDetailView(DetailView):
+    model = Book
+
+class BookCreateView(CreateView):
+    model = Book
+    form_class = BookForm
+
+class BookUpdateView(UpdateView):
+    model = Book
+    form_class = BookForm
