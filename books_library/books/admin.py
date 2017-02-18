@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django import forms
-from .models import Book
+from .models import Book, Category
+
 
 class BookAdminForm(forms.ModelForm):
 
@@ -14,3 +15,4 @@ class BookAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug', 'created', 'last_updated', 'link_to_pdf', 'thumbnail']
 
 admin.site.register(Book, BookAdmin)
+admin.site.register(Category)

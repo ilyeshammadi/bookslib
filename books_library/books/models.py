@@ -11,8 +11,27 @@ from django.contrib.auth import models as auth_models
 from django.db import models as models
 from django_extensions.db import fields as extension_fields
 
+class Category(models.Model):
+
+    # Fields
+    name = models.CharField(max_length=255)
+    slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
+
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __unicode__(self):
+        return u'%s' % self.slug
+
+
 
 class Book(models.Model):
+
+    # Fields
     name = models.CharField(max_length=255)
     description = models.TextField()
 
@@ -25,6 +44,9 @@ class Book(models.Model):
 
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
+
+    # Relationship Fields
+    categories = models.OneToOneField(Category)
 
     class Meta:
         ordering = ('-created',)
