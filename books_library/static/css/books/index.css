@@ -1,0 +1,17 @@
+#search-bar {
+  margin-bottom: 28px;
+}
+
+
+#search-bar-container {
+  padding: 0 !important;
+}
+
+#pagination {
+  text-align: center;
+}
+
+
+.book-title {
+  margin-top: 12px;
+}
