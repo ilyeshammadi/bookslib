@@ -33,6 +33,7 @@ class Book(models.Model):
 
     # Fields
     name = models.CharField(max_length=255)
+    author = models.CharField(max_length=80, default='no-author')
     description = models.TextField()
 
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)

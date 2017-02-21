@@ -1,0 +1,39 @@
+.m-b-1 {
+  margin-bottom: 0 !important;
+}
+
+#book-detail-infos {
+  padding: 24px !important;
+  font-size: 14px;
+}
+
+.book-infos {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+  columns: 2;
+  max-width: 80rem;
+}
+
+.book-infos > li > span {
+  font-weight: 700;
+}
+
+.share {
+  margin-top: 8px;
+  margin-bottom: 18px;
+}
+
+.share>span {
+  font-weight: 800;
+}
+
+.share>i {
+  margin-left: 8px;
+}
+
+.info-wrapper {
+  padding-bottom: 18px;
+}

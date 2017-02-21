@@ -1,4 +1,60 @@
-{% extends 'base.html' %}
+{% extends 'books/index.html' %}
+{% load static %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/books/book_detail.css' %}">
+{% endblock %}
+
 {% block content %}
-    {{ object.name }}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">{{ object.categories }}</a></li>
+        <li class="breadcrumb-item active">{{ object.name }}</li>
+    </ol>
+    <div class="container">
+        <div class="card row info-wrapper">
+            <div class="col-sm-4 col-md-4">
+                <img class="book-image img-fluid" src="{{ object.thumbnail.url }}" alt="{{ object.name }}"
+                     height="240">
+                <div class="share">
+                    <span>Share </span>
+                    <i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i>
+                    <i class="fa fa-twitter fa-2x"></i>
+                    <i class="fa fa-linkedin fa-2x"></i>
+                </div>
+                <div class="actions">
+                    <a href="{{ object.link_to_pdf }}" class="btn btn-primary">Start Reading</a>
+                    {% if request.user.is_superuser %}
+                        <a href="{% url 'books:update' book %}" class="btn btn-primary">Update</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-sm-9 col-md-7 ">
+                <div>
+                    <h4 class="book-title"><a href="{% url 'books:detail' object.slug %}"
+                                              class="card-link">{{ object.name }}</a>
+                    </h4>
+                    <p class="book-author">By <span>{{ object.author }}</span></p>
+                    <p class="card-text">{{ object.description }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="book-detail-infos" class="card row">
+            <h5>Book Details</h5>
+            <ul class="book-infos">
+                <li><span>Publication date:</span> XXXX</li>
+                <li><span>Publisher:</span> XXXX</li>
+                <li><span>Publication City/Country:</span> XXXX</li>
+                <li><span>Language:</span> XXXX</li>
+                <li><span>ISBN10:</span> XXXX</li>
+                <li><span>ISBN13:</span> XXXX</li>
+            </ul>
+
+
+        </div>
+    </div>
+
+
+
 {% endblock %}

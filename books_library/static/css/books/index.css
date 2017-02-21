@@ -15,3 +15,16 @@
 .book-title {
   margin-top: 12px;
 }
+
+.book-image {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.book-author {
+  font-size: 12px;
+}
+
+.book-author > span {
+  color: cornflowerblue;
+}
