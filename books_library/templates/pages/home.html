@@ -1,1 +1,27 @@
 {% extends "base.html" %}
+{% load static %}
+
+
+{% block css %}
+
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/pages/home.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="cover-page">
+        <h1>Start Reading and Change the World</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet architecto deserunt dolore eligendi eum,
+            expedita fuga hic illum magni maxime nesciunt, nostrum officiis possimus quibusdam, quis tempore ut
+            veritatis?</p>
+        <div>
+            <a class="btn btn-primary" href="{% url 'books:index' %}">Start Reading</a>
+        </div>
+    </div>
+
+
+    
+
+{% endblock %}
