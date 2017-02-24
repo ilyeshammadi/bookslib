@@ -13,13 +13,13 @@
         <div class="row">
             <div class="col-sm-12 col-md-3">
                 <div class="list-group">
-                    <a href="#" class="list-group-item active">
-                        Cras justo odio
-                    </a>
-                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item">Morbi leo risus</a>
-                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item">Vestibulum at eros</a>
+                    <a href="{% url 'books:index' %}" class="list-group-item {% if not category_slug %} active {% endif %}">All</a>
+                    {% for category in categories %}
+                        <a href="{% url 'books:index' category.slug %}" class="list-group-item {% if category_slug == category.slug %} active {% endif %}">
+                            {{ category.name }}
+                        </a>
+                    {% endfor %}
+
                 </div>
             </div>
             <div class="col-sm-12 col-md-9">
