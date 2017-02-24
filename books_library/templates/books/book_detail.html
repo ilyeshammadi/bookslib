@@ -7,12 +7,16 @@
 {% endblock %}
 
 {% block content %}
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">{{ object.categories }}</a></li>
-        <li class="breadcrumb-item active">{{ object.name }}</li>
-    </ol>
+    {% comment %}<div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4">
+            <ol class="breadcrumb thumbnail">
+                <li><a href="#">{{ object.categories }}</a></li>
+                <li class="active">{{ object.name }}</li>
+            </ol>
+        </div>
+    </div>{% endcomment %}
     <div class="container">
-        <div class="card row info-wrapper">
+        <div class="thumbnail row info-wrapper">
             <div id="image-wrapper" class="col-xs-12 col-sm-12 col-md-4">
                 <img class="book-image" src="{{ object.thumbnail.url }}" alt="{{ object.name }}"
                      height="240">
@@ -35,17 +39,19 @@
                                               class="card-link">{{ object.name }}</a>
                     </h4>
                     <p class="book-author">By <span>{{ object.author }}</span></p>
-                    {% for tag in object.tags.all %}
-                        <span class="badge badge-pill badge-default">{{ tag }}</span>
-                    {% endfor %}
+                    <div class="tags">
+                        {% for tag in object.tags.all %}
+                            <span class="badge badge-pill badge-default">{{ tag }}</span>
+                        {% endfor %}
+                    </div>
 
                     <p class="card-text">{{ object.description }}</p>
                 </div>
             </div>
         </div>
 
-        <div id="book-detail-infos" class="card row">
-            <h5>Book Details</h5>
+        <div id="book-detail-infos" class="thumbnail row">
+            <h4>Book Details</h4>
             <ul class="book-infos">
                 <li><span>Publication date:</span> XXXX</li>
                 <li><span>Publisher:</span> XXXX</li>

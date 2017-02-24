@@ -24,6 +24,7 @@
 .share {
   display: flex;
   justify-content: center;
+  align-items: center;
 
   margin-top: 8px;
   margin-bottom: 18px;
@@ -44,3 +45,9 @@
 #image-wrapper {
   text-align: center;
 }
+
+.tags {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+

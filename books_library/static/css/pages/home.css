@@ -1,5 +1,5 @@
 .cover-page {
-  height: calc(100vh - 54px);
+  height: 100vh;
   width: 100vw;
 
   display: flex;
@@ -19,6 +19,6 @@
 
 }
 
-.m-b-1 {
-  margin-bottom: 0 !important;
+.main-content {
+  margin-top: 0 !important;
 }

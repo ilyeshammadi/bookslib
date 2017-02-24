@@ -28,3 +28,7 @@
 .book-author > span {
   color: cornflowerblue;
 }
+
+.book-image-wrapper {
+  text-align: center;
+}

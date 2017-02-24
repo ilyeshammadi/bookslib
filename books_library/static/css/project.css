@@ -36,3 +36,15 @@
 [hidden][style="display: block;"] {
   display: block !important;
 }
+
+.main-content {
+  margin-top: 120px;
+}
+
+body {
+  background-color: #f8f8f8;
+}
+
+.navbar-default {
+  background-color: white;
+}
