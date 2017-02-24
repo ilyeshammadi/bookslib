@@ -22,18 +22,25 @@
 }
 
 .share {
+  display: flex;
+  justify-content: center;
+
   margin-top: 8px;
   margin-bottom: 18px;
 }
 
-.share>span {
+.share > span {
   font-weight: 800;
 }
 
-.share>i {
+.share > a >i {
   margin-left: 8px;
 }
 
 .info-wrapper {
   padding-bottom: 18px;
+}
+
+#image-wrapper {
+  text-align: center;
 }
