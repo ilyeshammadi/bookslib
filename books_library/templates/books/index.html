@@ -15,7 +15,7 @@
                 <div class="list-group">
                     <a href="{% url 'books:index' %}" class="list-group-item {% if not category_slug %} active {% endif %}">All</a>
                     {% for category in categories %}
-                        <a href="{% url 'books:index' category.slug %}" class="list-group-item {% if category_slug == category.slug %} active {% endif %}">
+                        <a href="{% url 'books:search' category.slug %}" class="list-group-item {% if category_slug == category.slug %} active {% endif %}">
                             {{ category.name }}
                         </a>
                     {% endfor %}

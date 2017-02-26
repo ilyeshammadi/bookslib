@@ -11,9 +11,12 @@
 
 {% block content %}
 
+    <!-- Start Cover -->
+
     <div class="cover-page">
-        <h1>Start Reading and Change the World</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet architecto deserunt dolore eligendi eum,
+        <h1 class="featurette-heading">Start Reading and Change the World</h1>
+        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A amet architecto deserunt dolore
+            eligendi eum,
             expedita fuga hic illum magni maxime nesciunt, nostrum officiis possimus quibusdam, quis tempore ut
             veritatis?</p>
         <div>
@@ -21,7 +24,68 @@
         </div>
     </div>
 
+    <!-- End Cover -->
 
+    <!-- START THE FEATURETTES -->
 
+    <div class="container">
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">First featurette heading. <span
+                        class="text-muted">It'll blow your mind.</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
+                    euismod
+                    semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac
+                    cursus
+                    commodo.</p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive center-block" src="{% static 'images/feat-1.jpg' %}"
+                     alt="Generic placeholder image">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7 col-md-push-5">
+                <h2 class="featurette-heading">Oh yeah, it's that good. <span
+                        class="text-muted">See for yourself.</span>
+                </h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
+                    euismod
+                    semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac
+                    cursus
+                    commodo.</p>
+            </div>
+            <div class="col-md-5 col-md-pull-7">
+                <img class="featurette-image img-responsive center-block" src="{% static 'images/feat-2.jpg' %}"
+                     alt="Generic placeholder image">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+                <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
+                    euismod
+                    semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac
+                    cursus
+                    commodo.</p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive center-block" src="{% static 'images/feat-3.jpg' %}"
+                     alt="Generic placeholder image">
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+    </div>
+
+    <!-- /END THE FEATURETTES -->
 
 {% endblock %}
