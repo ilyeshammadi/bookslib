@@ -47,7 +47,7 @@ class Book(models.Model):
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
     # Relationship Fields
-    categories = models.OneToOneField(Category)
+    categories = models.ForeignKey(Category)
 
     class Meta:
         ordering = ('-created',)

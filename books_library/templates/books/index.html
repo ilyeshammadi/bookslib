@@ -13,9 +13,11 @@
         <div class="row">
             <div class="col-sm-12 col-md-3">
                 <div class="list-group">
-                    <a href="{% url 'books:index' %}" class="list-group-item {% if not category_slug %} active {% endif %}">All</a>
+                    <a href="{% url 'books:index' %}"
+                       class="list-group-item {% if not category_slug %} active {% endif %}">All</a>
                     {% for category in categories %}
-                        <a href="{% url 'books:search' category.slug %}" class="list-group-item {% if category_slug == category.slug %} active {% endif %}">
+                        <a href="{% url 'books:search' category.slug %}"
+                           class="list-group-item {% if category_slug == category.slug %} active {% endif %}">
                             {{ category.name }}
                         </a>
                     {% endfor %}
@@ -24,14 +26,14 @@
             </div>
             <div class="col-sm-12 col-md-9">
                 <div class="container">
-                    <!-- TODO: Complete the search feature-->
                     <div class="row">
                         <div class="col-sm-12 col-md-10 col-lg-8 col-xl-8">
-                            <form>
+                            <form method="post">
                                 {% csrf_token %}
                                 <div id="search-bar-container">
                                     <div class="input-group" id="search-bar">
-                                        <input type="text" class="form-control" placeholder="Search for...">
+                                        <input type="text" class="form-control" placeholder="Title, Author, Tags..."
+                                               name="search">
                                         <span class="input-group-btn"><button class="btn btn-secondary"
                                                                               type="submit">Go!</button></span>
                                     </div>
