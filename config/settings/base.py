@@ -53,6 +53,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'taggit', # Tags management
+    'languages' # Add language model field
 ]
 
 # Apps specific for this project go here.

@@ -11,6 +11,8 @@ from django.contrib.auth import models as auth_models
 from django.db import models as models
 from django_extensions.db import fields as extension_fields
 
+from languages.fields import LanguageField
+
 class Category(models.Model):
 
     # Fields
@@ -41,6 +43,17 @@ class Book(models.Model):
     link_to_pdf = models.URLField()
     thumbnail = models.ImageField(upload_to='books-thumbnail/', default='books-thumbnail/default.jpg')
 
+    publication_date = models.DateField(null=True, blank=True)
+
+    # The city and country where the book was published
+    publication_place = models.CharField(max_length=120, null=True, blank=True)
+
+    publisher = models.CharField(max_length=120, null=True, blank=True)
+    language = LanguageField(null=True, blank=True)
+
+    isbn10 = models.CharField(max_length=250, null=True, blank=True)
+    isbn13 = models.CharField(max_length=250, null=True, blank=True)
+
     tags = TaggableManager()
 
     created = models.DateTimeField(auto_now_add=True, editable=False)
@@ -54,6 +67,7 @@ class Book(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.slug
+
 
     def get_absolute_url(self):
         return reverse('books:detail', args=(self.slug,))
