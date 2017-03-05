@@ -22,13 +22,11 @@ class Category(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
-
     class Meta:
         ordering = ('-created',)
 
     def __unicode__(self):
         return u'%s' % self.slug
-
 
 
 class Book(models.Model):
@@ -41,7 +39,8 @@ class Book(models.Model):
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
 
     link_to_pdf = models.URLField()
-    thumbnail = models.ImageField(upload_to='books-thumbnail/', default='books-thumbnail/default.jpg')
+    thumbnail = models.ImageField(
+        upload_to='books-thumbnail/', default='books-thumbnail/default.jpg')
 
     publication_date = models.DateField(null=True, blank=True)
 
@@ -68,10 +67,8 @@ class Book(models.Model):
     def __unicode__(self):
         return u'%s' % self.slug
 
-
     def get_absolute_url(self):
         return reverse('books:detail', args=(self.slug,))
-
 
     def get_update_url(self):
         return reverse('books:update', args=(self.slug,))

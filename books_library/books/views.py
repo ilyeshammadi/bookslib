@@ -1,12 +1,14 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404
-
+from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DetailView
+
 
 from .forms import BookForm
 from .models import Book, Category
 
+from ..navigation.models import Search, BookHistory
 
 def index(request, category_slug=None):
     # Get all the books
@@ -42,6 +44,14 @@ def index(request, category_slug=None):
 
         books = books.filter(q).distinct()
 
+        # If the search has results, save the searched terms
+        if len(books) > 0:
+            search_history = Search()
+            search_history.terms = search
+            search_history.user = request.user
+            search_history.save()
+
+
     # Show 25 contacts per page
     paginator = Paginator(books, 25)
 
@@ -65,6 +75,26 @@ def index(request, category_slug=None):
 
 class BookDetailView(DetailView):
     model = Book
+    def get_object(self):
+        """Return the requested book and save the navigation"""
+        # Get the object from the super class method
+        book = super(BookDetailView, self).get_object()
+
+        # If the user is logged in, save the book history actions
+        if self.request.user != None:
+            
+            # Get the logged in user
+            user = self.request.user
+
+            # Test if the user is viewing the book 
+            # for the first time
+            try:
+                book_history = BookHistory.objects.get(book=book, user=user)
+            except:
+                book_history = BookHistory(book=book, user=user, viewed=True)
+                book_history.save()
+            
+        return book
 
 
 class BookCreateView(CreateView):

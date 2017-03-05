@@ -61,7 +61,8 @@ LOCAL_APPS = [
     # custom users app
     'books_library.users.apps.UsersConfig',
     # Your stuff: custom apps go here'
-    'books_library.books.apps.BooksConfig'
+    'books_library.books.apps.BooksConfig',
+    'books_library.navigation',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
