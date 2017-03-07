@@ -27,7 +27,7 @@
                     <a href=""><i class="fa fa-linkedin fa-2x"></i></a>
                 </div>
                 <div class="actions">
-                    <a href="{{ object.link_to_pdf }}" class="btn btn-primary">Start Reading</a>
+                    <a href="{% url 'books:read' object.id %}" class="btn btn-primary">Start Reading</a>
                     {% if request.user.is_superuser %}
                         <a href="{% url 'books:update' book %}" class="btn btn-primary">Update</a>
                     {% endif %}

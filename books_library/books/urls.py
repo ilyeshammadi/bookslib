@@ -31,4 +31,10 @@ urlpatterns = [
         view=views.index,
         name='search'
     ),
+    url(
+        regex=r'^read/(?P<id>\d+)$',
+        view=views.book_read,
+        name='read'
+    ),
+    
 ]

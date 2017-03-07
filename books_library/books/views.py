@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DetailView
 
@@ -81,7 +81,7 @@ class BookDetailView(DetailView):
         book = super(BookDetailView, self).get_object()
 
         # If the user is logged in, save the book history actions
-        if self.request.user != None:
+        if self.request.user.is_authenticated():
             
             # Get the logged in user
             user = self.request.user
@@ -105,3 +105,21 @@ class BookCreateView(CreateView):
 class BookUpdateView(UpdateView):
     model = Book
     form_class = BookForm
+
+@login_required
+def book_read(request, id):
+    """Returns the book link pdf"""
+    # Get the logged in user
+    user = request.user
+    
+    # Get the Book to read
+    book = get_object_or_404(Book, pk=id)
+
+    # Get the Book history
+    book_history = get_object_or_404(BookHistory, book=book, user=user)
+    book_history.read = True
+    book_history.save()
+
+    # Return the PDF link
+    return redirect(book.link_to_pdf)
+
