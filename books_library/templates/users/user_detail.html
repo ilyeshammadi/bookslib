@@ -3,34 +3,129 @@
 
 {% block title %}User: {{ object.username }}{% endblock %}
 
+
+{% block css %}
+    {{ block.super }}
+    <style>
+        body {
+            background-color: white;
+        }
+
+        .main-content {
+            margin-top: 100px;
+        }
+
+        .book p {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        #profile-image {
+            width: 100%;
+        }
+
+        #follow-btn {
+            width: 100%;
+            background-color: #f4f6f8 !important;
+        }
+
+    </style>
+{% endblock %}
+
+
 {% block content %}
-<div class="container">
+    <div class="container">
 
-  <div class="row">
-    <div class="col-sm-12">
+        <!-- Action buttons -->
+        <div class="row">
 
-      <h2>{{ object.username }}</h2>
-      {% if object.name %}
-        <p>{{ object.name }}</p>
-      {% endif %}
+            {# User profile unfos #}
+            <div class="col-xs-12 col-sm-3">
+                {#         Profile image#}
+                <img id="profile-image" src="http://placehold.it/200x200" alt="">
+
+
+                {# User first and last name #}
+                {% if object.name %}
+                    <h3>{{ object.name }}</h3>
+                {% endif %}
+
+
+                {# Username #}
+                <h4>{{ object.username }}</h4>
+
+
+                <p>Bio: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias cumque ea eaque earum
+                    facilis in
+                    maxime modi mollitia nam, nihil, provident recusandae rem repellat saepe, sapiente sunt veniam.
+                    Debitis, saepe.</p>
+
+
+                {# Follow btn #}
+                {% if object != request.user %}
+                    <button id="follow-btn" class="btn btn-default">Follow</button>
+                {% endif %}
+
+
+
+                <hr>
+
+                {# If its the owner of the profile #}
+                {% if object == request.user %}
+                    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
+                    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
+                {% endif %}
+
+
+            </div>
+
+            {# Books and followers #}
+            <div class="col-xs-12 col-sm-9">
+
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#books" data-toggle="tab">Books <span
+                            class="badge">{{ books|length }}</span></a></li>
+                    <li><a href="#followers" data-toggle="tab">Followers <span class="badge">0</span></a></li>
+                    <li><a href="#following" data-toggle="tab">Following <span class="badge">0</span></a></li>
+                </ul>
+
+
+                <div class="tab-content">
+                    <div id="books" class="tab-pane active">
+                        {% for book in books %}
+
+                            <div class="book">
+                                <h3><a href="{% url 'books:detail' book.book.slug %}">{{ book.book.name }}</a></h3>
+                                <p>{{ book.book.description }}</p>
+                                {% for tag in book.book.tags.all %}
+                                    <span class="badge badge-pill badge-default">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                            <hr>
+
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div id="followers" class="tab-pane">
+                        <h1>FOLLOWERS</h1>
+                    </div>
+
+
+                    <div id="following" class="tab-pane">
+                        <h1>FOLLOWING</h1>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
     </div>
-  </div>
-
-{% if object == request.user %}
-<!-- Action buttons -->
-<div class="row">
-
-  <div class="col-sm-12">
-    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
-    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
-    <!-- Your Stuff: Custom user template urls -->
-  </div>
-
-</div>
-<!-- End Action buttons -->
-{% endif %}
-
-
-</div>
 {% endblock content %}
 

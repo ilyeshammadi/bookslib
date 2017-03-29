@@ -6,15 +6,29 @@ from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from books_library.navigation.models import BookHistory
 from .models import User
 
 
-class UserDetailView(LoginRequiredMixin, DetailView):
+class UserDetailView(DetailView):
     model = User
     # These next two lines tell the view to index lookups by username
     slug_field = 'username'
     slug_url_kwarg = 'username'
 
+
+    def get_context_data(self, **kwargs):
+        context = super(UserDetailView, self).get_context_data(**kwargs)
+        user = context['object']
+
+        # Get all the books that the user has read
+        books = BookHistory.objects.filter(user=user)
+
+
+        # Bundle data into the context
+        context['books'] = books
+
+        return context
 
 class UserRedirectView(LoginRequiredMixin, RedirectView):
     permanent = False

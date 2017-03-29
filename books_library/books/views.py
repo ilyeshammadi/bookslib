@@ -82,18 +82,18 @@ class BookDetailView(DetailView):
 
         # If the user is logged in, save the book history actions
         if self.request.user.is_authenticated():
-            
+
             # Get the logged in user
             user = self.request.user
 
-            # Test if the user is viewing the book 
+            # Test if the user is viewing the book
             # for the first time
             try:
                 book_history = BookHistory.objects.get(book=book, user=user)
             except:
                 book_history = BookHistory(book=book, user=user, viewed=True)
                 book_history.save()
-            
+
         return book
 
 
@@ -111,7 +111,7 @@ def book_read(request, id):
     """Returns the book link pdf"""
     # Get the logged in user
     user = request.user
-    
+
     # Get the Book to read
     book = get_object_or_404(Book, pk=id)
 
