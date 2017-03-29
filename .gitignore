@@ -77,6 +77,4 @@ staticfiles/
 
 venv/
 
-local-env.sh
-
 .vscode/
