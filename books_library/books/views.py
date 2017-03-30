@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DetailView
 
-
+from books_library.users.models import User
 from .forms import BookForm
 from .models import Book, Category
 
@@ -13,6 +13,9 @@ from ..navigation.models import Search, BookHistory
 def index(request, category_slug=None):
     # Get all the books
     books = Book.objects.all()
+
+    # Get all users
+    users = User.objects.all()
 
     # Get all the categories
     categories = Category.objects.all()
@@ -34,15 +37,27 @@ def index(request, category_slug=None):
         terms = search.split(',')
 
         # Decalre an empty query
-        q = Q()
+        q_books = Q()
 
         # Go through each term
         for term in terms:
-            q |= Q(name__contains=term)
-            q |= Q(author__contains=term)
-            q |= Q(tags__name__contains=term)
+            q_books |= Q(name__contains=term)
+            q_books |= Q(author__contains=term)
+            q_books |= Q(tags__name__contains=term)
 
-        books = books.filter(q).distinct()
+        books = books.filter(q_books).distinct()
+
+        # Decalre an empty query
+        q_users = Q()
+
+        # Go through each term
+        for term in terms:
+            q_users |= Q(name__contains=term)
+            q_users |= Q(username__contains=term)
+            q_users |= Q(email__contains=term)
+
+
+        users = users.filter(q_users).distinct()
 
         # If the search has results, save the searched terms
         if len(books) > 0:
@@ -68,6 +83,7 @@ def index(request, category_slug=None):
     context = {
         'books': books,
         'categories': categories,
+        'users' : users,
         'category_slug': category_slug
     }
     return render(request, 'books/index.html', context)

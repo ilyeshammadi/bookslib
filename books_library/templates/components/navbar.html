@@ -1,6 +1,6 @@
 {% load staticfiles i18n %}
 <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
+    <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -15,23 +15,40 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            {# Search Item #}
+            <form class="navbar-form navbar-left" method="post" action="{% url 'books:index' %}">
+                {% csrf_token %}
+                <div id="search-bar-container">
+                    <div class="input-group" id="search-bar">
+                        <input type="text" class="form-control" placeholder="Title, Author, Tags..."
+                               name="search">
+                    </div>
+                </div>
+            </form>
+
+
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'home' %}">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'books:index' %}">Books</a>
-                </li>
                 {% if request.user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link"
-                           href="{% url 'users:detail' request.user.username %}">{% trans "My Profile" %}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+                    <li id="user-nav-img" class="nav-item">
+                        <div class="btn-group">
+                            <a type="button" class="dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                <img src="{{ request.user.image.url }}" class="img-rounded" height="28px">
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'users:detail' request.user.username %}">Profile</a></li>
+                                <li><a href="#"><a class="nav-link" href="{% url 'about' %}">About</a></a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a></li>
+                            </ul>
+                        </div>
+
+
                     </li>
                 {% else %}
                     <li class="nav-item">

@@ -1,7 +1,10 @@
-#search-bar {
-  margin-bottom: 28px;
+.main-content {
+  margin-top: 100px;
 }
 
+#nav-items {
+  margin-bottom: 40px;
+}
 
 #search-bar-container {
   padding: 0 !important;

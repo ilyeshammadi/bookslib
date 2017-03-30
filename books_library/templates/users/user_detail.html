@@ -6,31 +6,7 @@
 
 {% block css %}
     {{ block.super }}
-    <style>
-        body {
-            background-color: white;
-        }
-
-        .main-content {
-            margin-top: 100px;
-        }
-
-        .book p {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        #profile-image {
-            width: 100%;
-        }
-
-        #follow-btn {
-            width: 100%;
-            background-color: #f4f6f8 !important;
-        }
-
-    </style>
+    <link rel="stylesheet" href="{% static 'css/users/user_detail.css' %}">
 {% endblock %}
 
 
@@ -53,13 +29,10 @@
 
 
                 {# Username #}
-                <h4>{{ object.username }}</h4>
+                <h4 id="username">{{ object.username }}</h4>
 
 
-                <p>Bio: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias cumque ea eaque earum
-                    facilis in
-                    maxime modi mollitia nam, nihil, provident recusandae rem repellat saepe, sapiente sunt veniam.
-                    Debitis, saepe.</p>
+                <p id="user-bio">{{ object.bio }}</p>
 
 
                 {# Follow btn #}
@@ -96,8 +69,8 @@
                         {% for book in books %}
 
                             <div class="book">
-                                <h3><a href="{% url 'books:detail' book.book.slug %}">{{ book.book.name }}</a></h3>
-                                <p>{{ book.book.description }}</p>
+                                <h4 class="project-name"><a href="{% url 'books:detail' book.book.slug %}">{{ book.book.name }}</a></h4>
+                                <p class="project-description">{{ book.book.description }}</p>
                                 {% for tag in book.book.tags.all %}
                                     <span class="badge badge-pill badge-default">{{ tag }}</span>
                                 {% endfor %}

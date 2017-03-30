@@ -1,0 +1,37 @@
+body {
+  background-color: white;
+}
+
+.main-content {
+  margin-top: 100px;
+}
+
+.book p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#profile-image {
+  width: 100%;
+}
+
+#follow-btn {
+  width: 100%;
+  background-color: #f4f6f8 !important;
+}
+
+.project-name a {
+  font-size: 20px;
+}
+
+#username,
+#user-bio,
+.project-description {
+  color: #6a7785;
+}
+
+#username {
+  font-weight: 400;
+}
+
