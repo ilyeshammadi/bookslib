@@ -40,17 +40,6 @@
                     <button id="follow-btn" class="btn btn-default">Follow</button>
                 {% endif %}
 
-
-
-                <hr>
-
-                {# If its the owner of the profile #}
-                {% if object == request.user %}
-                    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
-                    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
-                {% endif %}
-
-
             </div>
 
             {# Books and followers #}

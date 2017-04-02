@@ -41,9 +41,10 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url 'users:detail' request.user.username %}">Profile</a></li>
-                                <li><a href="#"><a class="nav-link" href="{% url 'about' %}">About</a></a></li>
+                                <li><a href="{% url 'users:detail' request.user.username %}">{% trans "Profile" %}</a></li>
+                                <li><a href="#"><a class="nav-link" href="{% url 'about' %}">{% trans "About" %}</a></a></li>
                                 <li role="separator" class="divider"></li>
+                                <li><a href="{% url 'users:update' %}">{% trans "Settings" %}</a></li>
                                 <li><a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
                                 </li>
                             </ul>
