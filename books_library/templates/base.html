@@ -33,13 +33,13 @@
 
 {% include 'components/navbar.html' %}
 
-<div class="main-content">
+{% if messages %}
+    {% for message in messages %}
+        <div id="dj-message" class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
 
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+<div class="main-content">
 
     {% block content %}
         <p>Use this document as a way to quick start any new project.</p>
@@ -68,6 +68,17 @@
     <!-- Your stuff: Third-party javascript libraries go here -->
 
     <!-- place project specific Javascript in this file -->
+
+    <script>
+        // Remove the Django message after 5 seconds
+        setTimeout(function () {
+            var $target = $('.alert');
+            $target.hide('slow', function () {
+                $target.remove();
+            });
+        }, 5000);
+
+    </script>
 
     <script src="{% static 'js/project.js' %}"></script>
 

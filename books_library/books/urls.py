@@ -27,6 +27,11 @@ urlpatterns = [
         name='update'
     ),
     url(
+        regex=r'^search/(?P<category_slug>\S+)/(?P<search_terms>.+)$',
+        view=views.index,
+        name='search'
+    ),
+    url(
         regex=r'^search/(?P<category_slug>\S+)$',
         view=views.index,
         name='search'
@@ -36,5 +41,5 @@ urlpatterns = [
         view=views.book_read,
         name='read'
     ),
-    
+
 ]

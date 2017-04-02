@@ -38,11 +38,7 @@
 }
 
 .main-content {
-  margin-top: 120px;
-}
-
-body {
-  background-color: #f8f8f8;
+  margin-top: 20px;
 }
 
 .navbar-default {
@@ -51,4 +47,20 @@ body {
 
 #user-nav-img {
   margin-top: 12px;
+}
+
+#dj-message {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 0 !important;
+}
+
+.main-content {
+  margin-top: 110px;
+}
+
+#search-bar-container div input {
+  border-radius: 5px;
 }

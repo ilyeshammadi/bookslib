@@ -1,7 +1,3 @@
-.main-content {
-  margin-top: 100px;
-}
-
 #nav-items {
   margin-bottom: 40px;
 }
@@ -13,7 +9,6 @@
 #pagination {
   text-align: center;
 }
-
 
 .book-title {
   margin-top: 12px;
@@ -34,4 +29,10 @@
 
 .book-image-wrapper {
   text-align: center;
+}
+
+#dj-message {
+  position: fixed;
+  top: 0;
+  width: 100%;
 }

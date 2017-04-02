@@ -10,7 +10,7 @@ from .models import Book, Category
 
 from ..navigation.models import Search, BookHistory
 
-def index(request, category_slug=None):
+def index(request, category_slug=None, search_terms=None):
     # Get all the books
     books = Book.objects.all()
 
@@ -26,6 +26,11 @@ def index(request, category_slug=None):
     # If request is post
     if request.method == 'POST':
         search = request.POST.get('search')
+
+
+    # If search by category and search terms
+    if search_terms and search_terms != 'None':
+        search = search_terms
 
     # Category filter
     if category_slug:
@@ -60,7 +65,7 @@ def index(request, category_slug=None):
         users = users.filter(q_users).distinct()
 
         # If the search has results, save the searched terms
-        if len(books) > 0:
+        if len(books) > 0 and request.user.is_authenticated():
             search_history = Search()
             search_history.terms = search
             search_history.user = request.user
@@ -84,7 +89,8 @@ def index(request, category_slug=None):
         'books': books,
         'categories': categories,
         'users' : users,
-        'category_slug': category_slug
+        'category_slug': category_slug,
+        'search' : search
     }
     return render(request, 'books/index.html', context)
 
