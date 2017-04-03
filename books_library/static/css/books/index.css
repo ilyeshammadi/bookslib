@@ -36,3 +36,31 @@
   top: 0;
   width: 100%;
 }
+
+.user img {
+  display: inline;
+  height: 48px;
+  width: 48px;
+  border-radius: 4px;
+}
+
+.user-name a:first-child {
+  font-size: 20px;
+  margin-right: 4px;
+}
+
+.user-name span {
+  font-size: 18px;
+}
+
+.user p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: grey;
+}
+
+.follow-btn {
+  background-color: #f4f6f8 !important;
+  float: right;
+}
