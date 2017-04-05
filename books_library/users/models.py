@@ -16,6 +16,8 @@ class User(AbstractUser):
     image = models.ImageField(upload_to='users/', default='users/default.png')
     bio = models.TextField(blank=True)
 
+    following = models.ManyToManyField('User', related_name='user_following', blank=True)
+
     def __str__(self):
         return self.username
 

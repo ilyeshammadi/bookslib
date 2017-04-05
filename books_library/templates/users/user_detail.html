@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="{% static 'css/users/user_detail.css' %}">
 {% endblock %}
 
+{% block javascript %}
+    {{ block.super }}
+    <script src="{% static "js/users/user_detail.js" %}"></script>
+{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -35,10 +39,22 @@
                 <p id="user-bio">{{ object.bio }}</p>
 
 
-                {# Follow btn #}
-                {% if object != request.user %}
-                    <button id="follow-btn" class="btn btn-default">Follow</button>
+                {# If the user is logged in #}
+                {% if request.user.is_authenticated %}
+
+                    {# If the requested user is not the logged in user, show the follow un unfollow buttons #}
+                    {% if object != request.user %}
+
+                        {% if is_following %}
+                            <button id="unfollow-btn" class="btn btn-default btn-follow">Unfollow</button>
+                        {% else %}
+                            {# Follow btn #}
+                            <button id="follow-btn" class="btn btn-default btn-follow">Follow</button>
+                        {% endif %}
+
+                    {% endif %}
                 {% endif %}
+
 
             </div>
 
@@ -48,8 +64,10 @@
                 <ul class="nav nav-tabs nav-justified">
                     <li class="active"><a href="#books" data-toggle="tab">Books <span
                             class="badge">{{ books|length }}</span></a></li>
-                    <li><a href="#followers" data-toggle="tab">Followers <span class="badge">0</span></a></li>
-                    <li><a href="#following" data-toggle="tab">Following <span class="badge">0</span></a></li>
+                    <li><a href="#followers" data-toggle="tab">Followers <span
+                            class="badge">{{ followers|length }}</span></a></li>
+                    <li><a href="#following" data-toggle="tab">Following <span
+                            class="badge">{{ following|length }}</span></a></li>
                 </ul>
 
 
@@ -58,7 +76,8 @@
                         {% for book in books %}
 
                             <div class="book">
-                                <h4 class="project-name"><a href="{% url 'books:detail' book.book.slug %}">{{ book.book.name }}</a></h4>
+                                <h4 class="project-name"><a
+                                        href="{% url 'books:detail' book.book.slug %}">{{ book.book.name }}</a></h4>
                                 <p class="project-description">{{ book.book.description }}</p>
                                 {% for tag in book.book.tags.all %}
                                     <span class="badge badge-pill badge-default">{{ tag }}</span>
@@ -73,12 +92,42 @@
 
 
                     <div id="followers" class="tab-pane">
-                        <h1>FOLLOWERS</h1>
+                        <div id="users" class="tab-pane ">
+                            {% for user in followers %}
+                                <div class="user">
+
+                                    <h3 class="user-name">
+                                        <img src="{{ user.image.url }}" class="img-responsive"
+                                             alt="{{ user.username }}">
+                                        <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
+                                        <span>{{ user.name }}</span>
+                                    </h3>
+                                    <p>{{ user.bio }}</p>
+                                    <hr>
+                                </div>
+                            {% endfor %}
+
+                        </div>
                     </div>
 
 
                     <div id="following" class="tab-pane">
-                        <h1>FOLLOWING</h1>
+                        <div id="users" class="tab-pane ">
+                            {% for user in following %}
+                                <div class="user">
+
+                                    <h3 class="user-name">
+                                        <img src="{{ user.image.url }}" class="img-responsive"
+                                             alt="{{ user.username }}">
+                                        <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
+                                        <span>{{ user.name }}</span>
+                                    </h3>
+                                    <p>{{ user.bio }}</p>
+                                    <hr>
+                                </div>
+                            {% endfor %}
+
+                        </div>
                     </div>
 
                 </div>

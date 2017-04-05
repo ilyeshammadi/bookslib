@@ -33,11 +33,15 @@
 
 {% include 'components/navbar.html' %}
 
-{% if messages %}
-    {% for message in messages %}
-        <div id="dj-message" class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
-    {% endfor %}
-{% endif %}
+
+<div id="messages">
+    {% if messages %}
+        {% for message in messages %}
+            <div id="dj-message"
+                 class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+</div>
 
 <div class="main-content">
 
@@ -69,18 +73,14 @@
 
     <!-- place project specific Javascript in this file -->
 
+    <script src="{% static 'js/project.js' %}"></script>
+    <script src="{% static 'js/utils.js' %}"></script>
+
+
     <script>
         // Remove the Django message after 5 seconds
-        setTimeout(function () {
-            var $target = $('.alert');
-            $target.hide('slow', function () {
-                $target.remove();
-            });
-        }, 5000);
-
+        removeMessages();
     </script>
-
-    <script src="{% static 'js/project.js' %}"></script>
 
 
 {% endblock javascript %}

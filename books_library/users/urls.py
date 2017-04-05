@@ -26,4 +26,9 @@ urlpatterns = [
         view=views.UserUpdateView.as_view(),
         name='update'
     ),
+    url(
+        regex=r'^follow/(?P<username_to_follow>\S+)$',
+        view=views.follow,
+        name='follow'
+    ),
 ]

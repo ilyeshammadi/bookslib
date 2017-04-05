@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -25,9 +28,29 @@ class UserDetailView(DetailView):
         # Get all the books that the user has read
         books = BookHistory.objects.filter(user=user)
 
+        # Get the following users
+        following = user.following.all()
+
+        # Get the followers users
+        followers = User.objects.filter(following__username=user.username)
 
         # Bundle data into the context
         context['books'] = books
+        context['following'] = following
+        context['followers'] = followers
+
+        # Check if the user is following the requested profile detail
+        if self.request.user.is_authenticated():
+
+            # Get the logged in user
+            logged_in_user = self.request.user
+
+            # If it's not the logged in user profile
+            if logged_in_user != user:
+
+                # True if the requested user is in the following
+                # list of the logged in user
+                context['is_following'] = user in logged_in_user.following.all()
 
         return context
 
@@ -63,3 +86,20 @@ class UserListView(LoginRequiredMixin, ListView):
     # These next two lines tell the view to index lookups by username
     slug_field = 'username'
     slug_url_kwarg = 'username'
+
+
+@login_required
+def follow(request, username_to_follow):
+    """View that is used to let the login user to follow another user"""
+    try:
+        # If the user is not all ready begin follwed
+        if not request.user.following.filter(username=username_to_follow).exists():
+            user_to_follow = get_object_or_404(User, username=username_to_follow)
+            request.user.following.add(user_to_follow)
+            return JsonResponse({'message':'success'})
+        else:
+            return JsonResponse({'message': 'user is all ready being follwed'})
+    except:
+        res = JsonResponse({'message': 'error'})
+        res.status_code = 400
+        return res
