@@ -31,4 +31,9 @@ urlpatterns = [
         view=views.follow,
         name='follow'
     ),
+    url(
+        regex=r'^unfollow/(?P<username_to_unfollow>\S+)$',
+        view=views.unfollow,
+        name='unfollow'
+    ),
 ]

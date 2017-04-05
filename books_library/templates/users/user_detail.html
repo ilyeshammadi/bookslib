@@ -45,13 +45,14 @@
                     {# If the requested user is not the logged in user, show the follow un unfollow buttons #}
                     {% if object != request.user %}
 
-                        {% if is_following %}
-                            <button id="unfollow-btn" class="btn btn-default btn-follow">Unfollow</button>
-                        {% else %}
-                            {# Follow btn #}
-                            <button id="follow-btn" class="btn btn-default btn-follow">Follow</button>
-                        {% endif %}
-
+                        <div class="button-wrapper">
+                            {% if is_following %}
+                                <button id="unfollow-btn" class="btn btn-default btn-follow">Unfollow</button>
+                            {% else %}
+                                {# Follow btn #}
+                                <button id="follow-btn" class="btn btn-default btn-follow">Follow</button>
+                            {% endif %}
+                        </div>
                     {% endif %}
                 {% endif %}
 

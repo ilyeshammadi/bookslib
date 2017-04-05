@@ -103,3 +103,21 @@ def follow(request, username_to_follow):
         res = JsonResponse({'message': 'error'})
         res.status_code = 400
         return res
+
+@login_required
+def unfollow(request, username_to_unfollow):
+    """View that is used to let the login user to unfollow another user"""
+    try:
+        # If the logged in user is following the user to unfollow
+        if request.user.following.filter(username=username_to_unfollow).exists():
+            user_to_unfollow = get_object_or_404(User, username=username_to_unfollow)
+            request.user.following.remove(user_to_unfollow)
+            return JsonResponse({'message':'success'})
+        else:
+            res = JsonResponse({'message': "can't unfollow this user"})
+            res.status_code = 400
+            return res
+    except:
+        res = JsonResponse({'message': 'error'})
+        res.status_code = 400
+        return res
