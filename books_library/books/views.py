@@ -10,6 +10,7 @@ from .models import Book, Category
 
 from ..navigation.models import Search, BookHistory
 
+
 def index(request, category_slug=None, search_terms=None):
     # Get all the books
     books = Book.objects.all()
@@ -26,7 +27,6 @@ def index(request, category_slug=None, search_terms=None):
     # If request is post
     if request.method == 'POST':
         search = request.POST.get('search')
-
 
     # If search by category and search terms
     if search_terms and search_terms != 'None':
@@ -61,7 +61,6 @@ def index(request, category_slug=None, search_terms=None):
             q_users |= Q(username__contains=term)
             q_users |= Q(email__contains=term)
 
-
         users = users.filter(q_users).distinct()
 
         # If the search has results, save the searched terms
@@ -70,7 +69,6 @@ def index(request, category_slug=None, search_terms=None):
             search_history.terms = search
             search_history.user = request.user
             search_history.save()
-
 
     # Show 25 contacts per page
     paginator = Paginator(books, 25)
@@ -88,15 +86,16 @@ def index(request, category_slug=None, search_terms=None):
     context = {
         'books': books,
         'categories': categories,
-        'users' : users,
+        'users': users,
         'category_slug': category_slug,
-        'search' : search
+        'search': search
     }
     return render(request, 'books/index.html', context)
 
 
 class BookDetailView(DetailView):
     model = Book
+
     def get_object(self):
         """Return the requested book and save the navigation"""
         # Get the object from the super class method
@@ -108,9 +107,11 @@ class BookDetailView(DetailView):
             # Get the logged in user
             user = self.request.user
 
+            # TODO: spagity code here
             # Test if the user is viewing the book
             # for the first time
             try:
+                # TODO: replace with filter().exists() method
                 book_history = BookHistory.objects.get(book=book, user=user)
             except:
                 book_history = BookHistory(book=book, user=user, viewed=True)
@@ -127,6 +128,7 @@ class BookCreateView(CreateView):
 class BookUpdateView(UpdateView):
     model = Book
     form_class = BookForm
+
 
 @login_required
 def book_read(request, id):

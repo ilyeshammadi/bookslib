@@ -12,6 +12,9 @@
 
 .book-title {
   margin-top: 12px;
+  font-size: 29px;
+  font-weight: 400;
+  text-decoration: none;
 }
 
 .book-image {
@@ -29,6 +32,10 @@
 
 .book-image-wrapper {
   text-align: center;
+}
+
+.card-text {
+  color: rgba(0, 0, 0, .6);
 }
 
 #dj-message {
@@ -63,4 +70,37 @@
 .follow-btn {
   background-color: #f4f6f8 !important;
   float: right;
+}
+
+.book-actions {
+  margin-bottom: 15px;
+}
+
+.book-actions i {
+  font-size: 24px;
+  color: green;
+  cursor: pointer;
+}
+
+.book-actions a {
+  float: right;
+  text-decoration: none;
+  margin-top: 4px;
+  color: rgba(0, 0, 0, .6);
+}
+
+.book-actions a:hover {
+  color: rgba(0, 0, 0, .8);
+}
+
+.book-actions span {
+  vertical-align: top;
+  font-size: 16px;
+  color: rgba(0, 0, 0, .55);
+}
+
+.bookmark {
+  float: right;
+  margin-right: 10px;
+  margin-top: 2px;
 }

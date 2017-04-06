@@ -1,5 +1,5 @@
 {% load staticfiles i18n %}
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -33,6 +33,7 @@
             <ul class="nav navbar-nav navbar-right">
 
                 {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'suggestion' %}"><i class="ion-ios-paper-outline"></i>Feed</a></li>
                     <li id="user-nav-img" class="nav-item">
                         <div class="btn-group">
                             <a type="button" class="dropdown-toggle" data-toggle="dropdown"
@@ -41,11 +42,11 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url 'users:detail' request.user.username %}">{% trans "Profile" %}</a></li>
-                                <li><a href="#"><a class="nav-link" href="{% url 'about' %}">{% trans "About" %}</a></a></li>
+                                <li><a href="{% url 'users:detail' request.user.username %}"><i class="ion-person"></i>{% trans "Profile" %}</a></li>
+                                <li><a class="nav-link" href="{% url 'about' %}"><i class="ion-ios-help-outline"></i> {% trans "About" %}</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="{% url 'users:update' %}">{% trans "Settings" %}</a></li>
-                                <li><a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
+                                <li><a href="{% url 'users:update' %}"><i class="ion-ios-gear"></i> {% trans "Settings" %}</a></li>
+                                <li><a class="nav-link" href="{% url 'account_logout' %}"> <i class="ion-reply"></i> {% trans "Sign Out" %}</a>
                                 </li>
                             </ul>
                         </div>

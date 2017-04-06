@@ -45,6 +45,20 @@
   background-color: white;
 }
 
+#navbar {
+  box-shadow: 1px 0 2px grey;
+}
+
+.nav li a {
+  color: #337ab7;
+}
+
+.nav li a i {
+  font-size: 24px;
+  vertical-align: sub;
+  margin-right: 6px;
+}
+
 #user-nav-img {
   margin-top: 12px;
 }
