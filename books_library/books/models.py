@@ -1,4 +1,6 @@
 from __future__ import unicode_literals
+
+from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from django.core.urlresolvers import reverse
 from django_extensions.db.fields import AutoSlugField
@@ -58,8 +60,11 @@ class Book(models.Model):
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
+    likes = models.ManyToManyField('users.User', blank=True)
+
     # Relationship Fields
     categories = models.ForeignKey(Category)
+
 
     class Meta:
         ordering = ('-created',)

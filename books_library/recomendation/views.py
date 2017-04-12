@@ -4,12 +4,15 @@ from django.shortcuts import render
 
 # Create your views here.
 from books_library.books.models import Book
+from books_library.navigation.models import BookHistory
 
 
 @login_required
 def suggestion(request):
     """ Suggest books according to the logged in user profile data"""
     books = Book.objects.all()
+
+    user = request.user
 
     # Show 25 contacts per page
     paginator = Paginator(books, 25)

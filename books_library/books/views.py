@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView, UpdateView, DetailView
@@ -147,3 +148,74 @@ def book_read(request, id):
     # Return the PDF link
     return redirect(book.link_to_pdf)
 
+
+@login_required
+def book_like(request, id):
+    """Take the id of the book to like"""
+    try:
+        # Get the logged in user
+        user = request.user
+
+        # Get the Book to read
+        book = get_object_or_404(Book, pk=id)
+
+        # If the book is in the user history
+        if BookHistory.objects.filter(book=book, user=user).exists():
+            book_history = BookHistory.objects.get(book=book, user=user)
+
+            if not book_history.liked:
+                book_history.liked = True
+                book.likes.add(user)
+                book.save()
+            else:
+                res = JsonResponse({'message': "Can't like a book more then one time"})
+                res.status_code = 400
+                return res
+        else:
+            book_history = BookHistory(book=book, user=user)
+            book_history.liked = True
+
+            # Increse the like by one
+            book.likes.add(user)
+            book.save()
+
+        book_history.save()
+
+        return JsonResponse({'message': 'book {0} is liked by the user {1}'.format(book.name, user.username), 'likes' : book.likes.count()})
+
+    except:
+        res = JsonResponse({'message': 'error'})
+        res.status_code = 400
+        return res
+
+@login_required
+def book_dislike(request, id):
+    """Take the id of the book to like"""
+    try:
+        # Get the logged in user
+        user = request.user
+
+        # Get the Book to read
+        book = get_object_or_404(Book, pk=id)
+
+        # If the book is in the user history
+        if BookHistory.objects.filter(book=book, user=user).exists():
+            book_history = BookHistory.objects.get(book=book, user=user)
+
+            if book_history.liked:
+                book_history.liked = False
+                book.likes.remove(user)
+                book.save()
+            else:
+                res = JsonResponse({'message': "Can't dislike a book more then one time"})
+                res.status_code = 400
+                return res
+
+            book_history.save()
+
+        return JsonResponse({'message': 'book {0} is disliked by the user {1}'.format(book.name, user.username), 'likes' : book.likes.count()})
+
+    except:
+        res = JsonResponse({'message': 'error'})
+        res.status_code = 400
+        return res

@@ -94,7 +94,7 @@
 }
 
 .book-actions span {
-  vertical-align: top;
+  vertical-align: text-bottom;
   font-size: 16px;
   color: rgba(0, 0, 0, .55);
 }

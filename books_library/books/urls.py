@@ -41,5 +41,15 @@ urlpatterns = [
         view=views.book_read,
         name='read'
     ),
+    url(
+        regex=r'^like/(?P<id>\d+)$',
+        view=views.book_like,
+        name='book_like'
+    ),
+    url(
+        regex=r'^dislike/(?P<id>\d+)$',
+        view=views.book_dislike,
+        name='book_dislike'
+    ),
 
 ]

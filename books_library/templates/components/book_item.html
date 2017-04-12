@@ -1,3 +1,5 @@
+{% load books %}
+
 {% for book in books %}
     <div class="col-xs-10 col-md-12 col-lg-10 col-xl-10 col-xs-offset-1">
         <div class="thumbnail row">
@@ -16,10 +18,21 @@
             <div class="col-xs-12">
                 <hr>
                 <div class="book-actions">
-                    <i id="like-{{ book.id }}" class="fa fa-heart-o like" aria-hidden="true"></i>
-                    <span>19</span>
+
+                    {% if book|isliked:request.user %}
+                        <i id="dislike-{{ book.id }}" class="fa fa-heart dislike" aria-hidden="true"></i>
+                    {% else %}
+                        <i id="like-{{ book.id }}" class="fa fa-heart-o like" aria-hidden="true"></i>
+                    {% endif %}
+
+
+
+                    <span id="likes-count-{{ book.id }}">{{ book.likes.all|length }}</span>
+
+
                     <a href="{% url 'books:detail' book.slug %}">Read more</a>
                     <i id="bookmark-{{ book.id }}" class="fa fa-bookmark-o bookmark" aria-hidden="true"></i>
+
                 </div>
             </div>
         </div>
