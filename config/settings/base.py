@@ -53,7 +53,8 @@ THIRD_PARTY_APPS = [
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'taggit', # Tags management
-    'languages' # Add language model field
+    'languages', # Add language model field
+    'graphene_django'
 ]
 
 # Apps specific for this project go here.
@@ -63,7 +64,8 @@ LOCAL_APPS = [
     # Your stuff: custom apps go here'
     'books_library.books.apps.BooksConfig',
     'books_library.navigation',
-    'books_library.recomendation'
+    'books_library.recomendation',
+    'books_library.graphql_api'
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -269,3 +271,4 @@ ADMIN_URL = r'^admin/'
 
 # Your common stuff: Below this line define 3rd party library settings
 # ------------------------------------------------------------------------------
+REQUIRES_SYSTEM_CHECKS = False
