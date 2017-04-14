@@ -66,10 +66,16 @@ def index(request, category_slug=None, search_terms=None):
 
         # If the search has results, save the searched terms
         if len(books) > 0 and request.user.is_authenticated():
+
+            # Create a new search history entry and save it into the
+            # logged in user history fields
             search_history = Search()
             search_history.terms = search
-            search_history.user = request.user
             search_history.save()
+
+            # Save the search history with the logged in user
+            request.user.history.searchs.add(search_history)
+
 
     # Show 25 contacts per page
     paginator = Paginator(books, 25)
