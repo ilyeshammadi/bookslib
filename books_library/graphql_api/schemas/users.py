@@ -8,5 +8,8 @@ from books_library.users.models import User
 class UserNode(DjangoObjectType):
     class Meta:
         model = User
+        filter_fields = {
+            'username' : ['exact']
+        }
         interfaces = (relay.Node,)
 
