@@ -117,9 +117,15 @@ class BookDetailView(DetailView):
             # If the user has not viewed the book, create a new BookAction model and save
             # in the user history field
             if not user.history.books_action.filter(book=book).exists():
-                book_actions = BookHistory(book=book)
+                book_actions = BookHistory(book=book, viewed=True)
                 book_actions.save()
                 user.history.books_action.add(book_actions)
+            else:
+                books_action = user.history.books_action.get(book=book)
+                if not books_action.viewed:
+                    books_action.viewed = True
+                    books_action.save()
+                
 
         return book
 
@@ -143,10 +149,20 @@ def book_read(request, id):
     # Get the Book to read
     book = get_object_or_404(Book, pk=id)
 
-    # Get the Book history
-    book_history = get_object_or_404(BookHistory, book=book, user=user)
-    book_history.read = True
-    book_history.save()
+    # If the user has a book history
+    if user.history.books_action.filter(book=book).exists():
+        book_action = user.history.books_action.get(book=book)
+        if not book_action.read:
+            book_action.read = True
+            book_action.save()
+
+    else:
+        book_action = BookHistory(book=book)
+        book_action.read = True
+        book_action.save()
+        user.history.books_action.add(book_action)
+
+
 
     # Return the PDF link
     return redirect(book.link_to_pdf)
