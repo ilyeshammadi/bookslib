@@ -222,8 +222,8 @@ def book_dislike(request, id):
         book = get_object_or_404(Book, pk=id)
 
         # If the book is in the user history
-        if BookHistory.objects.filter(book=book, user=user).exists():
-            book_history = BookHistory.objects.get(book=book, user=user)
+        if user.history.books_action.filter(book=book).exists():
+            book_history = user.history.books_action.get(book=book)
 
             if book_history.liked:
                 book_history.liked = False
