@@ -26,7 +26,7 @@ class UserDetailView(DetailView):
         user = context['object']
 
         # Get all the books that the user has read
-        books = BookHistory.objects.filter(user=user)
+        books = user.history.books_action.filter(read=True)
 
         # Get the following users
         following = user.following.all()
