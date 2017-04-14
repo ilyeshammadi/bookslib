@@ -2,14 +2,12 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-from ..users.models import User
-from ..books.models import Book
+from books_library.books.models import Book
 
 
 # Create your models here.
 class Search(models.Model):
 
-    user = models.ForeignKey(User)
     terms = models.TextField()
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
@@ -18,7 +16,6 @@ class Search(models.Model):
 
 
 class BookHistory(models.Model):
-    user = models.ForeignKey(User)
     book = models.ForeignKey(Book)
 
     viewed = models.BooleanField(default=False)
@@ -30,4 +27,13 @@ class BookHistory(models.Model):
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
     def __str__(self):
-        return str(self.book) + ' --- ' + str(self.user)
+        return str(self.book)
+
+
+
+class History(models.Model):
+    searchs = models.ManyToManyField(Search)
+    books_action = models.ManyToManyField(BookHistory)
+
+    def __str__(self):
+        return 'History id: {0}'.format(self.id)

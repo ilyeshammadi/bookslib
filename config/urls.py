@@ -8,10 +8,10 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
-from graphene_django.views import GraphQLView
 
 from books_library.recomendation.views import suggestion
 from books_library.graphql_api.schema import schema
+from books_library.graphql_api.views import PrivateGraphQLView
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
@@ -24,8 +24,8 @@ urlpatterns = [
     url(r'^users/', include('books_library.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
 
-    # Your stuff: custom urls includes go here
-    url(r'^graphql', GraphQLView.as_view(graphiql=True, schema=schema)),
+    # GraphQL
+    url(r'^graphql', PrivateGraphQLView.as_view(graphiql=True, schema=schema)),
 
 
     # Books

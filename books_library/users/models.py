@@ -7,6 +7,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
+from books_library.navigation.models import History
 
 @python_2_unicode_compatible
 class User(AbstractUser):
@@ -18,8 +19,20 @@ class User(AbstractUser):
 
     following = models.ManyToManyField('User', related_name='user_following', blank=True)
 
+    history = models.OneToOneField(History, null=True, blank=True)
+
+
     def __str__(self):
         return self.username
 
     def get_absolute_url(self):
         return reverse('users:detail', kwargs={'username': self.username})
+
+    def save(self, *args, **kwargs):
+        if self.history == None:
+            self.history = History.objects.create()
+
+        super(User, self).save(*args, **kwargs)
+
+
+
