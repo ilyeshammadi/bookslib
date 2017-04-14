@@ -108,15 +108,12 @@ class BookDetailView(DetailView):
             # Get the logged in user
             user = self.request.user
 
-            # TODO: spagity code here
-            # Test if the user is viewing the book
-            # for the first time
-            try:
-                # TODO: replace with filter().exists() method
-                book_history = BookHistory.objects.get(book=book, user=user)
-            except:
-                book_history = BookHistory(book=book, user=user, viewed=True)
-                book_history.save()
+            # If the user has not viewed the book, create a new BookAction model and save
+            # in the user history field
+            if not user.history.books_action.filter(book=book).exists():
+                book_actions = BookHistory(book=book)
+                book_actions.save()
+                user.history.books_action.add(book_actions)
 
         return book
 
