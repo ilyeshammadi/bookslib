@@ -7,7 +7,6 @@ from books_library.books.models import Book
 
 # Create your models here.
 class Search(models.Model):
-
     terms = models.TextField()
     created = models.DateTimeField(auto_now_add=True, editable=False)
 
@@ -27,8 +26,7 @@ class BookHistory(models.Model):
     last_updated = models.DateTimeField(auto_now=True, editable=False)
 
     def __str__(self):
-        return str(self.book)
-
+        return "id: {0} book: {1}".format(self.id, self.book.slug)
 
 
 class History(models.Model):

@@ -125,7 +125,7 @@ class BookDetailView(DetailView):
                 if not books_action.viewed:
                     books_action.viewed = True
                     books_action.save()
-                
+
 
         return book
 
@@ -179,11 +179,13 @@ def book_like(request, id):
         book = get_object_or_404(Book, pk=id)
 
         # If the book is in the user history
-        if BookHistory.objects.filter(book=book, user=user).exists():
-            book_history = BookHistory.objects.get(book=book, user=user)
+        if user.history.books_action.filter(book=book).exists():
+            book_history = user.history.books_action.get(book=book)
 
             if not book_history.liked:
                 book_history.liked = True
+                book_history.save()
+
                 book.likes.add(user)
                 book.save()
             else:
@@ -191,14 +193,16 @@ def book_like(request, id):
                 res.status_code = 400
                 return res
         else:
-            book_history = BookHistory(book=book, user=user)
+            book_history = BookHistory(book=book)
             book_history.liked = True
+            book_history.save()
+            user.history.books_action.add(book_history)
 
             # Increse the like by one
             book.likes.add(user)
             book.save()
 
-        book_history.save()
+
 
         return JsonResponse({'message': 'book {0} is liked by the user {1}'.format(book.name, user.username), 'likes' : book.likes.count()})
 
