@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
-
+from graphene_django.views import GraphQLView
 
 from books_library.recomendation.views import suggestion
 from books_library.graphql_api.schema import schema
@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # GraphQL
-    url(r'^graphql', PrivateGraphQLView.as_view(graphiql=True, schema=schema)),
+    url(r'^graphql', GraphQLView.as_view(graphiql=True, schema=schema)),
 
 
     # Books
