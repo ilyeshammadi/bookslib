@@ -41,28 +41,45 @@
                 <div class="tab-content">
                     <div id="books" class="tab-pane active">
 
+
                         <div class="row">
                             {% include 'components/book_item.html' %}
                         </div>
-
-                        <div class="row">
-                            {% include 'components/pagination.html' %}
-                        </div>
+                    
+                        {% if books %}
+                            <div class="row">
+                                {% include 'components/pagination.html' %}
+                            </div>
+                        {% endif %}
 
                     </div>
                     <div id="users" class="tab-pane ">
-                        {% for user in users %}
-                            <div class="user">
 
-                                <h3 class="user-name">
-                                    <img src="{{ user.image.url }}" class="img-responsive" alt="{{ user.username }}">
-                                    <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
-                                    <span>{{ user.name }}</span>
-                                </h3>
-                                <p>{{ user.bio }}</p>
-                                <hr>
+                        {% if users %}
+
+                            {% for user in users %}
+                                <div class="user">
+
+                                    <h3 class="user-name">
+                                        <img src="{{ user.image.url }}" class="img-responsive"
+                                             alt="{{ user.username }}">
+                                        <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
+                                        <span>{{ user.name }}</span>
+                                    </h3>
+                                    <p>{{ user.bio }}</p>
+                                    <hr>
+                                </div>
+                            {% endfor %}
+
+                        {% else %}
+
+                            <div class="indication-icon">
+                                <i class="ion-person-stalker" aria-hidden="true"></i>
+                                <h3>No results for users</h3>
                             </div>
-                        {% endfor %}
+
+                        {% endif %}
+
 
                     </div>
                 </div>

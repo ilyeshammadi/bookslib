@@ -1,41 +1,52 @@
 {% load books %}
 
-{% for book in books %}
-    <div class="col-xs-10 col-md-12 col-lg-10 col-xl-10 col-xs-offset-1">
-        <div class="thumbnail row">
-            <div class="col-sm-12 col-md-4 book-image-wrapper">
-                <img class="book-image" src="{{ book.thumbnail.url }}"
-                     alt="{{ book.name }}"
-                     height="240">
-            </div>
-            <div class="col-sm-9 col-md-7 ">
-                <div>
-                    <h4 class="book-title">{{ book.name }}</h4>
-                    <p class="book-author">By <span>{{ book.author }}</span></p>
-                    <p class="card-text">{{ book.description|truncatechars:200 }}</p>
+{% if books %}
+    {% for book in books %}
+        <div class="col-xs-10 col-md-12 col-lg-10 col-xl-10 col-xs-offset-1">
+            <div class="thumbnail row">
+                <div class="col-sm-12 col-md-4 book-image-wrapper">
+                    <img class="book-image" src="{{ book.thumbnail.url }}"
+                         alt="{{ book.name }}"
+                         height="240">
+                </div>
+                <div class="col-sm-9 col-md-7 ">
+                    <div>
+                        <h4 class="book-title">{{ book.name }}</h4>
+                        <p class="book-author">By <span>{{ book.author }}</span></p>
+                        <p class="card-text">{{ book.description|truncatechars:200 }}</p>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <hr>
+                    <div class="book-actions">
+
+                        {% if book|isliked:request.user %}
+                            <i id="dislike-{{ book.id }}" class="fa fa-heart dislike" aria-hidden="true"></i>
+                        {% else %}
+                            <i id="like-{{ book.id }}" class="fa fa-heart-o like" aria-hidden="true"></i>
+                        {% endif %}
+
+
+
+                        <span id="likes-count-{{ book.id }}">{{ book.likes.all|length }}</span>
+
+
+                        <a href="{% url 'books:detail' book.slug %}">Read more</a>
+                        <i id="bookmark-{{ book.id }}" class="fa fa-bookmark-o bookmark" aria-hidden="true"></i>
+
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-12">
-                <hr>
-                <div class="book-actions">
 
-                    {% if book|isliked:request.user %}
-                        <i id="dislike-{{ book.id }}" class="fa fa-heart dislike" aria-hidden="true"></i>
-                    {% else %}
-                        <i id="like-{{ book.id }}" class="fa fa-heart-o like" aria-hidden="true"></i>
-                    {% endif %}
-
-
-
-                    <span id="likes-count-{{ book.id }}">{{ book.likes.all|length }}</span>
-
-
-                    <a href="{% url 'books:detail' book.slug %}">Read more</a>
-                    <i id="bookmark-{{ book.id }}" class="fa fa-bookmark-o bookmark" aria-hidden="true"></i>
-
-                </div>
-            </div>
         </div>
+    {% endfor %}
 
+{% else %}
+
+    <div class="indication-icon">
+        <i class="fa fa-book" aria-hidden="true"></i>
+        <h3>No result for books</h3>
     </div>
-{% endfor %}
+
+{% endif %}
+

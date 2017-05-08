@@ -74,39 +74,53 @@
 
                 <div class="tab-content">
                     <div id="books" class="tab-pane active">
-                        {% for book in books %}
+                        {% if books %}
+                            {% for book in books %}
 
-                            <div class="book">
-                                <h4 class="project-name"><a
-                                        href="{% url 'books:detail' book.book.slug %}">{{ book.book.name }}</a></h4>
-                                <p class="project-description">{{ book.book.description }}</p>
-                                {% for tag in book.book.tags.all %}
-                                    <span class="badge badge-pill badge-default">{{ tag }}</span>
-                                {% endfor %}
+                                <div class="book">
+                                    <h4 class="project-name"><a
+                                            href="{% url 'books:detail' book.book.slug %}">{{ book.book.name }}</a></h4>
+                                    <p class="project-description">{{ book.book.description }}</p>
+                                    {% for tag in book.book.tags.all %}
+                                        <span class="badge badge-pill badge-default">{{ tag }}</span>
+                                    {% endfor %}
+                                </div>
+                                <hr>
+                            {% endfor %}
+
+                        {% else %}
+                            <div class="indication-icon">
+                                <i class="fa fa-book" aria-hidden="true"></i>
+                                <h3>You haven't start reading any book yet</h3>
                             </div>
-                            <hr>
-
-
-                        {% endfor %}
+                        {% endif %}
 
                     </div>
 
 
                     <div id="followers" class="tab-pane">
                         <div id="users" class="tab-pane ">
-                            {% for user in followers %}
-                                <div class="user">
+                            {% if followers %}
+                                {% for user in followers %}
+                                    <div class="user">
 
-                                    <h3 class="user-name">
-                                        <img src="{{ user.image.url }}" class="img-responsive"
-                                             alt="{{ user.username }}">
-                                        <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
-                                        <span>{{ user.name }}</span>
-                                    </h3>
-                                    <p>{{ user.bio }}</p>
-                                    <hr>
+                                        <h3 class="user-name">
+                                            <img src="{{ user.image.url }}" class="img-responsive"
+                                                 alt="{{ user.username }}">
+                                            <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
+                                            <span>{{ user.name }}</span>
+                                        </h3>
+                                        <p>{{ user.bio }}</p>
+                                        <hr>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="indication-icon">
+                                    <i class="ion-person-stalker" aria-hidden="true"></i>
+                                    <h3>You have no followers right now</h3>
                                 </div>
-                            {% endfor %}
+                            {% endif %}
+
 
                         </div>
                     </div>
@@ -114,19 +128,27 @@
 
                     <div id="following" class="tab-pane">
                         <div id="users" class="tab-pane ">
-                            {% for user in following %}
-                                <div class="user">
+                            {% if following %}
+                                {% for user in following %}
+                                    <div class="user">
 
-                                    <h3 class="user-name">
-                                        <img src="{{ user.image.url }}" class="img-responsive"
-                                             alt="{{ user.username }}">
-                                        <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
-                                        <span>{{ user.name }}</span>
-                                    </h3>
-                                    <p>{{ user.bio }}</p>
-                                    <hr>
+                                        <h3 class="user-name">
+                                            <img src="{{ user.image.url }}" class="img-responsive"
+                                                 alt="{{ user.username }}">
+                                            <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
+                                            <span>{{ user.name }}</span>
+                                        </h3>
+                                        <p>{{ user.bio }}</p>
+                                        <hr>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="indication-icon">
+                                    <i class="ion-person-stalker" aria-hidden="true"></i>
+                                    <h3>You haven't followed anyone yet</h3>
                                 </div>
-                            {% endfor %}
+                            {% endif %}
+
 
                         </div>
                     </div>
