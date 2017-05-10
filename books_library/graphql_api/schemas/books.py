@@ -1,3 +1,4 @@
+import graphene
 from graphene import relay, ObjectType, Schema, AbstractType
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
@@ -10,8 +11,10 @@ class CategoryNode(DjangoObjectType):
         model = Category
         interfaces = (relay.Node,)
 
+    pk = graphene.Int()
 
 class BookNode(DjangoObjectType):
+    pk = graphene.Int()
     class Meta:
         model = Book
         exclude_fields = ['language', 'tags']
@@ -19,3 +22,5 @@ class BookNode(DjangoObjectType):
             'name': ['exact', 'icontains', 'istartswith'],
         }
         interfaces = (relay.Node,)
+
+

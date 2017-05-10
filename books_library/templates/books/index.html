@@ -45,7 +45,7 @@
                         <div class="row">
                             {% include 'components/book_item.html' %}
                         </div>
-                    
+
                         {% if books %}
                             <div class="row">
                                 {% include 'components/pagination.html' %}
@@ -58,17 +58,7 @@
                         {% if users %}
 
                             {% for user in users %}
-                                <div class="user">
-
-                                    <h3 class="user-name">
-                                        <img src="{{ user.image.url }}" class="img-responsive"
-                                             alt="{{ user.username }}">
-                                        <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
-                                        <span>{{ user.name }}</span>
-                                    </h3>
-                                    <p>{{ user.bio }}</p>
-                                    <hr>
-                                </div>
+                                {% include 'components/user.html' %}
                             {% endfor %}
 
                         {% else %}

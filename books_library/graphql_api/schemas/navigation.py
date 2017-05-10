@@ -1,3 +1,4 @@
+import graphene
 from graphene import relay, ObjectType, Schema, AbstractType
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
@@ -10,14 +11,18 @@ class SearchNode(DjangoObjectType):
         model = Search
         interfaces = (relay.Node,)
 
+    pk = graphene.Int()
 
 class BookHistoryNode(DjangoObjectType):
     class Meta:
         model = BookHistory
         interfaces = (relay.Node,)
 
+    pk = graphene.Int()
 
 class HistoryNode(DjangoObjectType):
     class Meta:
         model = History
         interfaces = (relay.Node, )
+
+    pk = graphene.Int()

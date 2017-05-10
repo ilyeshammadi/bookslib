@@ -1,3 +1,4 @@
+import graphene
 from graphene import relay, ObjectType, Schema, AbstractType
 from graphene_django import DjangoObjectType
 from graphene_django.filter import DjangoFilterConnectionField
@@ -13,3 +14,4 @@ class UserNode(DjangoObjectType):
         }
         interfaces = (relay.Node,)
 
+    pk = graphene.Int()

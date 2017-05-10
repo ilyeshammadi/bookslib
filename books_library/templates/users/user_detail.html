@@ -102,17 +102,7 @@
                         <div id="users" class="tab-pane ">
                             {% if followers %}
                                 {% for user in followers %}
-                                    <div class="user">
-
-                                        <h3 class="user-name">
-                                            <img src="{{ user.image.url }}" class="img-responsive"
-                                                 alt="{{ user.username }}">
-                                            <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
-                                            <span>{{ user.name }}</span>
-                                        </h3>
-                                        <p>{{ user.bio }}</p>
-                                        <hr>
-                                    </div>
+                                    {% include 'components/user.html' %}
                                 {% endfor %}
                             {% else %}
                                 <div class="indication-icon">
@@ -130,17 +120,7 @@
                         <div id="users" class="tab-pane ">
                             {% if following %}
                                 {% for user in following %}
-                                    <div class="user">
-
-                                        <h3 class="user-name">
-                                            <img src="{{ user.image.url }}" class="img-responsive"
-                                                 alt="{{ user.username }}">
-                                            <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
-                                            <span>{{ user.name }}</span>
-                                        </h3>
-                                        <p>{{ user.bio }}</p>
-                                        <hr>
-                                    </div>
+                                    {% include 'components/user.html' %}
                                 {% endfor %}
                             {% else %}
                                 <div class="indication-icon">

@@ -9,7 +9,7 @@ from .schemas.navigation import SearchNode, BookHistoryNode, HistoryNode
 
 class Query(ObjectType):
     # User
-    user = relay.Node.Field(UserNode)
+    user = graphene.Field(UserNode, id=graphene.Int())
     all_users = DjangoFilterConnectionField(UserNode)
 
     # Category
@@ -17,7 +17,7 @@ class Query(ObjectType):
     all_categories = DjangoFilterConnectionField(CategoryNode)
 
     # Book
-    book = relay.Node.Field(BookNode)
+    book = graphene.Field(BookNode, id=graphene.Int())
     all_books = DjangoFilterConnectionField(BookNode)
 
     # Search
@@ -25,12 +25,24 @@ class Query(ObjectType):
     all_searchs = DjangoFilterConnectionField(SearchNode)
 
     # Book History
-    book_history = relay.Node.Field(BookHistoryNode)
+    book_history = graphene.Field(BookHistoryNode, id=graphene.Int())
     all_books_history = DjangoFilterConnectionField(BookHistoryNode)
 
     # History
     history = relay.Node.Field(HistoryNode)
     all_history = DjangoFilterConnectionField(HistoryNode)
 
+
+    def resolve_user(self, args, context, info):
+        query = UserNode.get_node(args.get('id'), context, info)
+        return query
+
+    def resolve_book(self, args, context, info):
+        query = BookNode.get_node(args.get('id'), context, info)
+        return query
+
+    def resolve_book_history(self, args, context, info):
+        query = BookHistoryNode.get_node(args.get('id'), context, info)
+        return query
 
 schema = Schema(query=Query)

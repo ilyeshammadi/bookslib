@@ -1,0 +1,14 @@
+{% load books %}
+<div class="user">
+
+    <h3 class="user-name">
+        <img src="{{ user.image.url }}" class="img-responsive"
+             alt="{{ user.username }}">
+        <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
+        <span>{{ user.name }}</span>
+    </h3>
+    <p>{{ user.bio }}</p>
+    <i class="fa fa-book" aria-hidden="true"></i>
+    <span>{{ user.history.books_action.all|viewed }}</span>
+    <hr>
+</div>
