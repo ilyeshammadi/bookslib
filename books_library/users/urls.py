@@ -36,4 +36,9 @@ urlpatterns = [
         view=views.unfollow,
         name='unfollow'
     ),
+    url(
+        regex=r'^twitter$',
+        view=views.add_twitter_data,
+        name='twitter'
+    ),
 ]

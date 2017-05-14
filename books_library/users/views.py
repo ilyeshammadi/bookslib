@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from books_library.navigation.models import BookHistory
 from books_library.users.forms import UpdateProfileForm
+from books_library.users.social import get_tweets
 from .models import User
 
 
@@ -119,3 +122,22 @@ def unfollow(request, username_to_unfollow):
         res = JsonResponse({'message': 'error'})
         res.status_code = 400
         return res
+
+@login_required
+def add_twitter_data(request):
+
+    username = request.user.username
+    provider = 'twitter'
+
+    # Check if user is logged in with a twitter account
+    has_twitter_account = SocialAccount.objects.filter(user=request.user, provider=provider).exists()
+    if not has_twitter_account:
+        messages.error(request, 'You are not logged in with your twitter account')
+        return redirect('users:update')
+
+    else:
+        # Get the twitter
+        for tweet in get_tweets(username):
+            print tweet
+
+    return redirect('users:update')
