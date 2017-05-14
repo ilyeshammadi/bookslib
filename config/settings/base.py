@@ -52,6 +52,7 @@ THIRD_PARTY_APPS = [
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'allauth.socialaccount.providers.twitter',
     'taggit', # Tags management
     'languages', # Add language model field
     'graphene_django'

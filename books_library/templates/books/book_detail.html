@@ -80,7 +80,7 @@
 
                         {% csrf_token %}
 
-                        <input type="hidden" name="book_id" value="{{ book.id }}" >
+                        <input type="hidden" name="book_id" value="{{ book.id }}">
 
 
                         {{ form|crispy }}
@@ -91,7 +91,9 @@
                         {% for comment in book.comments.all %}
                             <div class="comment list-group-item">
                                 <img src="{{ comment.user.image.url }}" alt="">
-                                <h3><a href="{% url 'users:detail' comment.user.username %}">{{ comment.user.username }}</a></h3>
+                                <h3>
+                                    <a href="{% url 'users:detail' comment.user.username %}">{{ comment.user.username }}</a>
+                                </h3>
                                 <p>{{ comment.content }}</p>
                             </div>
                         {% endfor %}
