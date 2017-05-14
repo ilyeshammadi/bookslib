@@ -1,3 +1,7 @@
+body {
+  background-color: #fafafa;
+}
+
 .m-b-1 {
   margin-bottom: 0 !important;
 }
@@ -51,3 +55,27 @@
   margin-bottom: 12px;
 }
 
+.comments {
+  margin-top: 12px;
+}
+
+.comment {
+  margin-bottom: 8px !important;
+}
+
+.comment h3 {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  vertical-align: sub;
+}
+
+.comment img {
+  height: 36px;
+  margin-right: 8px;
+  border-radius: 200%;
+}
+
+.comment p {
+  margin-top: 8px;
+}

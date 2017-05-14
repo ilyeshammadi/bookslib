@@ -1,11 +1,15 @@
 from __future__ import unicode_literals
 
+from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 
 from books_library.books.models import Book
 
-
 # Create your models here.
+
+
+
 class Search(models.Model):
     terms = models.TextField()
     created = models.DateTimeField(auto_now_add=True, editable=False)

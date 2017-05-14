@@ -31,6 +31,16 @@ class Category(models.Model):
         return u'%s' % self.slug
 
 
+
+class Comment(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    content = models.TextField()
+
+    def __str__(self):
+        return "{0} -- {1}".format(self.user, self.content[:20])
+
+
+
 class Book(models.Model):
 
     # Fields
@@ -65,6 +75,8 @@ class Book(models.Model):
     # Relationship Fields
     categories = models.ForeignKey(Category)
 
+    # Comments
+    comments = models.ManyToManyField(Comment)
 
     class Meta:
         ordering = ('-created',)

@@ -6,3 +6,4 @@ from .models import Search, BookHistory, History
 admin.site.register(Search)
 admin.site.register(BookHistory)
 admin.site.register(History)
+

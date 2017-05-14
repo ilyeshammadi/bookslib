@@ -51,5 +51,9 @@ urlpatterns = [
         view=views.book_dislike,
         name='book_dislike'
     ),
-
+    url(
+        regex=r'^comment/$',
+        view=views.add_comment,
+        name='add_comment'
+    ),
 ]

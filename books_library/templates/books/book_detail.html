@@ -1,9 +1,17 @@
 {% extends 'books/index.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+
 
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'css/books/book_detail.css' %}">
+{% endblock %}
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script src="{% static 'js/books/book_detail.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -63,6 +71,36 @@
 
 
         </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-md-offset-2">
+                <div class="comments-container">
+                    <button id="show-comment" class="btn btn-primary"><i class="fa fa-plus"></i> Add comment</button>
+                    <form id="comment-form" action="{% url 'books:add_comment' %}" method="post" role="form">
+
+                        {% csrf_token %}
+
+                        <input type="hidden" name="book_id" value="{{ book.id }}" >
+
+
+                        {{ form|crispy }}
+                        <button id="send" type="submit" class="btn btn-primary">Submit</button>
+                        <button id="cancel" class="btn btn-default">Cancel</button>
+                    </form>
+                    <div class="comments list-group">
+                        {% for comment in book.comments.all %}
+                            <div class="comment list-group-item">
+                                <img src="{{ comment.user.image.url }}" alt="">
+                                <h3><a href="{% url 'users:detail' comment.user.username %}">{{ comment.user.username }}</a></h3>
+                                <p>{{ comment.content }}</p>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 

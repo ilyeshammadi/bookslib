@@ -3,10 +3,13 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 from django.views.generic import CreateView, UpdateView, DetailView
+from django.contrib import messages
+
 
 from books_library.users.models import User
-from .forms import BookForm
+from .forms import BookForm, CommentCreateForm
 from .models import Book, Category
 
 from ..navigation.models import Search, BookHistory
@@ -66,7 +69,6 @@ def index(request, category_slug=None, search_terms=None):
 
         # If the search has results, save the searched terms
         if len(books) > 0 and request.user.is_authenticated():
-
             # Create a new search history entry and save it into the
             # logged in user history fields
             search_history = Search()
@@ -75,7 +77,6 @@ def index(request, category_slug=None, search_terms=None):
 
             # Save the search history with the logged in user
             request.user.history.searchs.add(search_history)
-
 
     # Show 25 contacts per page
     paginator = Paginator(books, 25)
@@ -126,8 +127,12 @@ class BookDetailView(DetailView):
                     books_action.viewed = True
                     books_action.save()
 
-
         return book
+
+    def get_context_data(self, **kwargs):
+        context = super(BookDetailView, self).get_context_data(**kwargs)
+        context['form'] = CommentCreateForm()
+        return context
 
 
 class BookCreateView(CreateView):
@@ -161,8 +166,6 @@ def book_read(request, id):
         book_action.read = True
         book_action.save()
         user.history.books_action.add(book_action)
-
-
 
     # Return the PDF link
     return redirect(book.link_to_pdf)
@@ -202,14 +205,14 @@ def book_like(request, id):
             book.likes.add(user)
             book.save()
 
-
-
-        return JsonResponse({'message': 'book {0} is liked by the user {1}'.format(book.name, user.username), 'likes' : book.likes.count()})
+        return JsonResponse({'message': 'book {0} is liked by the user {1}'.format(book.name, user.username),
+                             'likes': book.likes.count()})
 
     except:
         res = JsonResponse({'message': 'error'})
         res.status_code = 400
         return res
+
 
 @login_required
 def book_dislike(request, id):
@@ -236,9 +239,37 @@ def book_dislike(request, id):
 
             book_history.save()
 
-        return JsonResponse({'message': 'book {0} is disliked by the user {1}'.format(book.name, user.username), 'likes' : book.likes.count()})
+        return JsonResponse({'message': 'book {0} is disliked by the user {1}'.format(book.name, user.username),
+                             'likes': book.likes.count()})
 
     except:
         res = JsonResponse({'message': 'error'})
         res.status_code = 400
         return res
+
+
+@login_required
+def add_comment(request):
+    if request.method == 'POST':
+        form = CommentCreateForm(request.POST)
+
+        book_id = request.POST.get('book_id')
+        book = Book.objects.get(pk=book_id)
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.save()
+
+            book.comments.add(comment)
+
+            messages.success(request, 'Comment created')
+
+        else:
+            messages.error(request, 'Form is invalid')
+
+        return redirect(reverse('books:detail', kwargs={'slug': book.slug}))
+
+    else:
+        messages.error(request, 'Error when creating comment waiting for POST method')
+        return redirect('books:index')
