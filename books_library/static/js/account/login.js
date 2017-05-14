@@ -8,7 +8,7 @@ $(document).ready(function () {
     $('.twitter').prepend('<i class="social-icon fa fa-twitter"></i>');
 
     // Setup Google plus
-    
+
     // Setup Facebook
 
 });
