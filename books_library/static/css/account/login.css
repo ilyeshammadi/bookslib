@@ -1,0 +1,9 @@
+.socialaccount_providers {
+  list-style: none !important;
+  padding-left: 0;
+  margin-top: 16px;
+}
+
+.social-icon {
+  margin-right: 8px;
+}

@@ -1,15 +1,39 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static %}
 
 {% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/account/login.css' %}">
+{% endblock %}
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script src="{% static 'js/account/login.js' %}"></script>
+{% endblock %}
 
 {% block inner %}
     <h1>{% trans "Sign Up" %}</h1>
 
     <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
     </p>
+
+    <div class="socialaccount_ballot">
+
+        <div class="login-or">{% trans 'Sign in with this providers' %}</div>
+
+        <ul class="socialaccount_providers">
+            {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+        </ul>
+
+        <div class="login-or">{% trans 'or' %}</div>
+
+    </div>
+
 
     <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
         {% csrf_token %}
@@ -19,6 +43,9 @@
         {% endif %}
         <button class="btn btn-primary" type="submit">{% trans "Sign Up" %} &raquo;</button>
     </form>
+
+
+    {% include "socialaccount/snippets/login_extra.html" %}
 
 {% endblock %}
 
