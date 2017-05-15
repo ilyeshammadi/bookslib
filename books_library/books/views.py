@@ -216,7 +216,7 @@ def book_like(request, id):
 
 @login_required
 def book_dislike(request, id):
-    """Take the id of the book to like"""
+    """Take the id of the book to dislike"""
     try:
         # Get the logged in user
         user = request.user
@@ -285,6 +285,36 @@ def book_bookmark(request, id):
         return res
 
 
+
+@login_required
+def book_unbookmark(request, id):
+    """Take the id of the book to unboomark"""
+    try:
+        # Get the logged in user
+        user = request.user
+
+        # Get the Book to read
+        book = get_object_or_404(Book, pk=id)
+
+        # If the book is in the user history
+        if user.history.books_action.filter(book=book).exists():
+            book_history = user.history.books_action.get(book=book)
+
+            if book_history.bookmarked:
+                book_history.bookmarked = False
+            else:
+                res = JsonResponse({'message': "Can't unbookmarked a book more then one time"})
+                res.status_code = 400
+                return res
+
+            book_history.save()
+
+        return JsonResponse({'message': 'book {0} is unbookmarked by the user {1}'.format(book.name, user.username)})
+
+    except:
+        res = JsonResponse({'message': 'error'})
+        res.status_code = 400
+        return res
 
 @login_required
 def add_comment(request):

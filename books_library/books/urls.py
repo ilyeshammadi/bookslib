@@ -57,6 +57,11 @@ urlpatterns = [
         name='book_bookmark'
     ),
     url(
+        regex=r'^unbookmark/(?P<id>\d+)$',
+        view=views.book_unbookmark,
+        name='book_unbookmark'
+    ),
+    url(
         regex=r'^comment/$',
         view=views.add_comment,
         name='add_comment'

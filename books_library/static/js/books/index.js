@@ -64,7 +64,7 @@ function bookmark(bookId, $book) {
             $book.removeClass('fa-bookmark-o');
 
             $book.removeClass('bookmark');
-            $book.addClass('un-bookmark');
+            $book.addClass('unbookmark');
 
 
         }).fail(function (err) {
@@ -80,16 +80,17 @@ function unbookmark(bookId, $book) {
             $book.addClass('fa-bookmark-o');
             $book.removeClass('fa-bookmark');
 
-            $book.removeClass('un-bookmark');
+            $book.removeClass('unbookmark');
             $book.addClass('bookmark');
 
 
         }).fail(function (err) {
         showMessage(err, ALERT_DANGER);
+        console.log(err);
     })
 }
 
-$('.bookmark, .un-bookmark').click(function (e) {
+$('.bookmark, .unbookmark').click(function (e) {
     // Get the cliked item object
     const $book = $(e.target);
 
@@ -98,7 +99,7 @@ $('.bookmark, .un-bookmark').click(function (e) {
 
     if ($book.hasClass('bookmark')) {
         bookmark(bookId, $book);
-    } else if($book.hasClass('un-bookmark')) {
+    } else if($book.hasClass('unbookmark')) {
         unbookmark(bookId, $book);
     }
 

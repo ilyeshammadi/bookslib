@@ -33,7 +33,7 @@
 
                         <a href="{% url 'books:detail' book.slug %}">Read more</a>
                         {% if book|isBookmarked:request.user %}
-                            <i id="un-bookmark-{{ book.id }}" class="fa fa-bookmark un-bookmark" aria-hidden="true"></i>
+                            <i id="unbookmark-{{ book.id }}" class="fa fa-bookmark unbookmark" aria-hidden="true"></i>
                         {% else %}
                             <i id="bookmark-{{ book.id }}" class="fa fa-bookmark-o bookmark" aria-hidden="true"></i>
                         {% endif %}
