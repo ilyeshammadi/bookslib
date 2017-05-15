@@ -35,6 +35,9 @@ class UserDetailView(DetailView):
         # Get all the books that the user has read
         books = user.history.books_action.filter(read=True)
 
+        # Get all the bookmarks
+        bookmarks = user.history.books_action.filter(bookmarked=True)
+
         # Get the following users
         following = user.following.all()
 
@@ -43,6 +46,7 @@ class UserDetailView(DetailView):
 
         # Bundle data into the context
         context['books'] = books
+        context['bookmarks'] = bookmarks
         context['following'] = following
         context['followers'] = followers
 

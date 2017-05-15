@@ -1,0 +1,9 @@
+<div class="book">
+    <h4 class="project-name"><a
+            href="{% url 'books:detail' book.book.slug %}">{{ book.book.name }}</a></h4>
+    <p class="project-description">{{ book.book.description }}</p>
+    {% for tag in book.book.tags.all %}
+        <span class="badge badge-pill badge-default">{{ tag }}</span>
+    {% endfor %}
+</div>
+<hr>

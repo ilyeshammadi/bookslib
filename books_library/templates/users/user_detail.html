@@ -65,6 +65,8 @@
                 <ul class="nav nav-tabs nav-justified">
                     <li class="active"><a href="#books" data-toggle="tab">Books <span
                             class="badge">{{ books|length }}</span></a></li>
+                    <li><a href="#bookmarks" data-toggle="tab">Bookmarks <span
+                            class="badge">{{ bookmarks|length }}</span></a></li>
                     <li><a href="#followers" data-toggle="tab">Followers <span
                             class="badge">{{ followers|length }}</span></a></li>
                     <li><a href="#following" data-toggle="tab">Following <span
@@ -77,15 +79,7 @@
                         {% if books %}
                             {% for book in books %}
 
-                                <div class="book">
-                                    <h4 class="project-name"><a
-                                            href="{% url 'books:detail' book.book.slug %}">{{ book.book.name }}</a></h4>
-                                    <p class="project-description">{{ book.book.description }}</p>
-                                    {% for tag in book.book.tags.all %}
-                                        <span class="badge badge-pill badge-default">{{ tag }}</span>
-                                    {% endfor %}
-                                </div>
-                                <hr>
+                                {% include 'components/book_profile_item.html' %}
                             {% endfor %}
 
                         {% else %}
@@ -97,6 +91,22 @@
 
                     </div>
 
+
+                    <div id="bookmarks" class="tab-pane">
+                        {% if bookmarks %}
+                            {% for book in bookmarks %}
+
+                                {% include 'components/book_profile_item.html' %}
+                            {% endfor %}
+
+                        {% else %}
+                            <div class="indication-icon">
+                                <i class="fa fa-bookmark" aria-hidden="true"></i>
+                                <h3>You haven't bookmarked any book yet</h3>
+                            </div>
+                        {% endif %}
+
+                    </div>
 
                     <div id="followers" class="tab-pane">
                         <div id="users" class="tab-pane ">
