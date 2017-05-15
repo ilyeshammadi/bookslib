@@ -26,9 +26,11 @@
                             <i id="like-{{ book.id }}" class="fa fa-heart-o like" aria-hidden="true"></i>
                         {% endif %}
 
-
-
                         <span id="likes-count-{{ book.id }}">{{ book.likes.all|length }}</span>
+
+
+                        <i class="ion-chatbox"></i>
+                        <span id="likes-count-{{ book.id }}">{{ book.comments.all|length }}</span>
 
 
                         <a href="{% url 'books:detail' book.slug %}">Read more</a>

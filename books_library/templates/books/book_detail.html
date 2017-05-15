@@ -15,14 +15,6 @@
 {% endblock %}
 
 {% block content %}
-    {% comment %}<div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-4">
-            <ol class="breadcrumb thumbnail">
-                <li><a href="#">{{ object.categories }}</a></li>
-                <li class="active">{{ object.name }}</li>
-            </ol>
-        </div>
-    </div>{% endcomment %}
     <div class="container">
         <div class="thumbnail row info-wrapper">
             <div id="image-wrapper" class="col-xs-12 col-sm-12 col-md-4">
@@ -43,9 +35,7 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-7 ">
                 <div>
-                    <h4 class="book-title"><a href="{% url 'books:detail' object.slug %}"
-                                              class="card-link">{{ object.name }}</a>
-                    </h4>
+                    <h4 class="book-title">{{ object.name }}</h4>
                     <p class="book-author">By <span>{{ object.author }}</span></p>
                     <div class="tags">
                         {% for tag in object.tags.all %}
