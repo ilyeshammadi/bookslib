@@ -25,6 +25,7 @@ class BookHistory(models.Model):
     read = models.BooleanField(default=False)
     shared = models.BooleanField(default=False)
     liked = models.BooleanField(default=False)
+    bookmarked = models.BooleanField(default=False)
 
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)

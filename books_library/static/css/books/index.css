@@ -99,7 +99,7 @@
   color: rgba(0, 0, 0, .55);
 }
 
-.bookmark {
+.bookmark, .un-bookmark {
   float: right;
   margin-right: 10px;
   margin-top: 2px;

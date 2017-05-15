@@ -249,6 +249,44 @@ def book_dislike(request, id):
 
 
 @login_required
+def book_bookmark(request, id):
+    """Take the id of the book to bookmark"""
+    try:
+        # Get the logged in user
+        user = request.user
+
+        # Get the Book to read
+        book = get_object_or_404(Book, pk=id)
+
+        # If the book is in the user history
+        if user.history.books_action.filter(book=book).exists():
+            book_history = user.history.books_action.get(book=book)
+
+            if not book_history.bookmarked:
+                book_history.bookmarked = True
+                book_history.save()
+
+            else:
+                res = JsonResponse({'message': "Can't bookmark a book more then one time"})
+                res.status_code = 400
+                return res
+        else:
+            book_history = BookHistory(book=book)
+            book_history.bookmarked = True
+            book_history.save()
+            user.history.books_action.add(book_history)
+
+
+        return JsonResponse({'message': 'book {0} is bookmarked by the user {1}'.format(book.name, user.username)})
+
+    except:
+        res = JsonResponse({'message': 'error'})
+        res.status_code = 400
+        return res
+
+
+
+@login_required
 def add_comment(request):
     if request.method == 'POST':
         form = CommentCreateForm(request.POST)

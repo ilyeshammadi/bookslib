@@ -53,3 +53,54 @@ $('.like, .dislike').click(function (e) {
 
 
 });
+
+
+function bookmark(bookId, $book) {
+    $.get("/books/bookmark/" + bookId)
+        .done(function (res) {
+
+            // Change the heart icon state to filled
+            $book.addClass('fa-bookmark');
+            $book.removeClass('fa-bookmark-o');
+
+            $book.removeClass('bookmark');
+            $book.addClass('un-bookmark');
+
+
+        }).fail(function (err) {
+        showMessage(err, ALERT_DANGER);
+    })
+}
+
+function unbookmark(bookId, $book) {
+    $.get("/books/unbookmark/" + bookId)
+        .done(function (res) {
+
+            // Change the heart icon state to filled
+            $book.addClass('fa-bookmark-o');
+            $book.removeClass('fa-bookmark');
+
+            $book.removeClass('un-bookmark');
+            $book.addClass('bookmark');
+
+
+        }).fail(function (err) {
+        showMessage(err, ALERT_DANGER);
+    })
+}
+
+$('.bookmark, .un-bookmark').click(function (e) {
+    // Get the cliked item object
+    const $book = $(e.target);
+
+    // Get the id from the id attribute
+    const bookId = $book.attr('id').split('-')[1];
+
+    if ($book.hasClass('bookmark')) {
+        bookmark(bookId, $book);
+    } else if($book.hasClass('un-bookmark')) {
+        unbookmark(bookId, $book);
+    }
+
+
+});
