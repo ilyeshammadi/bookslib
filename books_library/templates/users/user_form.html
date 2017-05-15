@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags i18n %}
+{% load crispy_forms_tags i18n books %}
 
 {% block title %}{{ user.username }}{% endblock %}
 
@@ -10,6 +10,20 @@
         .row form {
             margin-left: 14px;
             margin-top: 20px;
+        }
+
+        #social-data {
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+
+        .item div:first-child {
+            display: inline-block;
+            font-size: 22px;
+        }
+
+        .item a {
+            float: right;
         }
     </style>
 {% endblock %}
@@ -39,10 +53,20 @@
                     </div>
                 </form>
 
-                <!-- Add social data -->
-                <h4>{% trans 'Add social data' %}</h4>
+                <div id="social-data">
+                    <!-- Add social data -->
+                    <h4>{% trans 'Social data' %}</h4>
 
-                <a href="{% url 'users:twitter' %}" class="btn btn-primary"><i class="fa fa-twitter"></i> Twitter</a>
+                    <div class="item">
+                        <div><i class="fa fa-twitter"></i> Twitter</div>
+                        {% if not user|hasTwitter %}
+                            <a href="{% url 'users:twitter_add' %}" class="btn btn-primary">Add</a>
+                        {% else %}
+                            <a href="{% url 'users:twitter_remove' %}" class="btn btn-danger">Remove</a>
+                        {% endif %}
+                    </div>
+
+                </div>
 
             </div>
         </div>

@@ -5,7 +5,7 @@ from graphene_django.filter import DjangoFilterConnectionField
 
 from .schemas.users import UserNode
 from .schemas.books import BookNode, CategoryNode
-from .schemas.navigation import SearchNode, BookHistoryNode, HistoryNode
+from .schemas.navigation import SearchNode, BookHistoryNode, HistoryNode, SocialDataNode
 
 class Query(ObjectType):
     # User
@@ -27,6 +27,10 @@ class Query(ObjectType):
     # Book History
     book_history = graphene.Field(BookHistoryNode, id=graphene.Int())
     all_books_history = DjangoFilterConnectionField(BookHistoryNode)
+
+    # Book History
+    social_data = graphene.Field(SocialDataNode, id=graphene.Int())
+    all_social_data = DjangoFilterConnectionField(SocialDataNode)
 
     # History
     history = relay.Node.Field(HistoryNode)

@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -11,7 +15,7 @@ from django.views.generic import DetailView, ListView, RedirectView, UpdateView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from books_library.navigation.models import BookHistory
+from books_library.navigation.models import BookHistory, SocialData
 from books_library.users.forms import UpdateProfileForm
 from books_library.users.social import get_tweets
 from .models import User
@@ -126,8 +130,14 @@ def unfollow(request, username_to_unfollow):
 @login_required
 def add_twitter_data(request):
 
+    user = request.user
     username = request.user.username
     provider = 'twitter'
+
+    # Check if the user has not added twitter data before
+    if user.history.social_data.filter(provider=provider).exists():
+        messages.error(request, 'You already added twitter data')
+        return redirect('users:update')
 
     # Check if user is logged in with a twitter account
     has_twitter_account = SocialAccount.objects.filter(user=request.user, provider=provider).exists()
@@ -137,7 +147,33 @@ def add_twitter_data(request):
 
     else:
         # Get the twitter
+        corpus = []
         for tweet in get_tweets(username):
-            print tweet
+            tweet = tweet.decode('utf-8').strip()
+            corpus.append(tweet)
+
+        corpus = ''.join(corpus)
+
+        social_data = SocialData(corpus=corpus, provider=provider)
+        social_data.save()
+
+        user.history.social_data.add(social_data)
+
 
     return redirect('users:update')
+
+@login_required
+def remove_twitter_data(request):
+    user = request.user
+    provider = 'twitter'
+
+    # If user has a twitter social data
+    has_social_data = user.history.social_data.filter(provider=provider).exists()
+    if has_social_data:
+        social_data = user.history.social_data.get(provider=provider)
+        social_data.delete()
+        messages.info(request, 'Twitter data removed from your profile')
+        return redirect('users:update')
+    else:
+        messages.error(request, 'You dont have a twitter data asociated with your account')
+        return redirect('users:update')

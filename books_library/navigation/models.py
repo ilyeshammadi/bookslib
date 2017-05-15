@@ -33,9 +33,18 @@ class BookHistory(models.Model):
         return "id: {0} book: {1}".format(self.id, self.book.slug)
 
 
+class SocialData(models.Model):
+    provider = models.CharField(max_length=50)
+    corpus = models.TextField()
+
+    def __str__(self):
+        return 'id: {0}, corpus: {1}'.format(self.id, self.corpus[:30])
+
+
 class History(models.Model):
     searchs = models.ManyToManyField(Search)
     books_action = models.ManyToManyField(BookHistory)
+    social_data = models.ManyToManyField(SocialData)
 
     def __str__(self):
         return 'History id: {0}'.format(self.id)
