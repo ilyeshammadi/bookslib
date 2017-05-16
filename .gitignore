@@ -78,3 +78,5 @@ staticfiles/
 venv/
 
 .vscode/
+
+BX-CSV-Dump/

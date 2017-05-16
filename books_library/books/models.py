@@ -54,6 +54,8 @@ class Book(models.Model):
     thumbnail = models.ImageField(
         upload_to='books-thumbnail/', default='books-thumbnail/default.jpg')
 
+    thumbnail_url = models.URLField(blank=True, null=True)
+
     publication_date = models.DateField(null=True, blank=True)
 
     # The city and country where the book was published

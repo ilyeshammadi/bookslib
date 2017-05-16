@@ -48,3 +48,5 @@ redis>=2.10.5
 django-taggit==0.22.0
 django-language-field==0.0.3
 django-filter==1.0.2
+graphene-django==1.2.1
+tweepy==3.5.0
