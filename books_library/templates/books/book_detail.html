@@ -18,8 +18,18 @@
     <div class="container">
         <div class="thumbnail row info-wrapper">
             <div id="image-wrapper" class="col-xs-12 col-sm-12 col-md-4">
-                <img class="book-image" src="{{ object.thumbnail.url }}" alt="{{ object.name }}"
-                     height="240">
+                {% if book.thumbnail_url %}
+                        <img class="book-image" src="{{ object.thumbnail_url }}"
+                         alt="{{ object.name }}"
+                         height="240">
+
+                    {% else %}
+
+                        <img class="book-image" src="{{ object.thumbnail.url }}"
+                         alt="{{ object.name }}"
+                         height="240">
+
+                    {% endif %}
                 <div class="share">
                     <span>Share </span>
                     <a href=""><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>

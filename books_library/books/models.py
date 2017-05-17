@@ -45,7 +45,7 @@ class Book(models.Model):
 
     # Fields
     name = models.CharField(max_length=255)
-    author = models.CharField(max_length=80, default='no-author')
+    author = models.CharField(max_length=255, default='no-author')
     description = models.TextField()
 
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
@@ -78,7 +78,7 @@ class Book(models.Model):
     categories = models.ForeignKey(Category)
 
     # Comments
-    comments = models.ManyToManyField(Comment)
+    comments = models.ManyToManyField(Comment, blank=True)
 
     class Meta:
         ordering = ('-created',)
