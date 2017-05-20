@@ -1,6 +1,6 @@
 {% extends 'books/index.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags books %}
 
 
 {% block css %}
@@ -19,17 +19,17 @@
         <div class="thumbnail row info-wrapper">
             <div id="image-wrapper" class="col-xs-12 col-sm-12 col-md-4">
                 {% if book.thumbnail_url %}
-                        <img class="book-image" src="{{ object.thumbnail_url }}"
+                    <img class="book-image" src="{{ object.thumbnail_url }}"
                          alt="{{ object.name }}"
                          height="240">
 
-                    {% else %}
+                {% else %}
 
-                        <img class="book-image" src="{{ object.thumbnail.url }}"
+                    <img class="book-image" src="{{ object.thumbnail.url }}"
                          alt="{{ object.name }}"
                          height="240">
 
-                    {% endif %}
+                {% endif %}
                 <div class="share">
                     <span>Share </span>
                     <a href=""><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
@@ -54,6 +54,29 @@
                     </div>
 
                     <p class="card-text">{{ object.description }}</p>
+                </div>
+                <hr>
+                <div class="book-actions">
+
+                    {% if object|isliked:request.user %}
+                        <i id="dislike-{{ object.id }}" class="fa fa-heart dislike" aria-hidden="true"></i>
+                    {% else %}
+                        <i id="like-{{ object.id }}" class="fa fa-heart-o like" aria-hidden="true"></i>
+                    {% endif %}
+
+                    <span id="likes-count-{{ object.id }}">{{ object.likes.all|length }}</span>
+
+
+                    <i class="ion-chatbox"></i>
+                    <span id="likes-count-{{ object.id }}">{{ object.comments.all|length }}</span>
+
+                    {% if object|isBookmarked:request.user %}
+                        <i id="unbookmark-{{ object.id }}" class="fa fa-bookmark unbookmark" aria-hidden="true"></i>
+                    {% else %}
+                        <i id="bookmark-{{ object.id }}" class="fa fa-bookmark-o bookmark" aria-hidden="true"></i>
+                    {% endif %}
+
+
                 </div>
             </div>
         </div>
