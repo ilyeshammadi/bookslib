@@ -79,4 +79,3 @@ $('#linkedin').click(function () {
         linkedinShare();
     });
 });
-

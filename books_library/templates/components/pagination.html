@@ -9,12 +9,7 @@
             </li>
         {% endif %}
 
-        {% for i in books.paginator.page_range %}
-            <li {% if books.number == i %} class="page-item active" {% else %}
-                                           class="page-item" {% endif %}><a
-                    class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-        {% endfor %}
-
+    
         {% if books.has_next %}
             <li class="page-item"><a class="page-link"
                                      href="?page={{ books.next_page_number }}">Next</a>
