@@ -57,6 +57,11 @@ urlpatterns = [
         name='book_bookmark'
     ),
     url(
+        regex=r'^share/(?P<id>\d+)$',
+        view=views.book_share,
+        name='book_share'
+    ),
+    url(
         regex=r'^unbookmark/(?P<id>\d+)$',
         view=views.book_unbookmark,
         name='book_unbookmark'

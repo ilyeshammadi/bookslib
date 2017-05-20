@@ -11,6 +11,9 @@
 
 {% block javascript %}
     {{ block.super }}
+    <script>
+        const bookId = "{{ object.id }}"
+    </script>
     <script src="{% static 'js/books/book_detail.js' %}"></script>
 {% endblock %}
 
@@ -32,9 +35,9 @@
                 {% endif %}
                 <div class="share">
                     <span>Share </span>
-                    <a href=""><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a>
-                    <a href=""><i class="fa fa-twitter fa-2x"></i></a>
-                    <a href=""><i class="fa fa-linkedin fa-2x"></i></a>
+                    <i id="facebook" class="fa fa-facebook-official fa-2x" aria-hidden="true"></i>
+                    <i id="twitter" class="fa fa-twitter fa-2x"></i>
+                    <i id="linkedin" class="fa fa-linkedin fa-2x"></i>
                 </div>
                 <div class="actions">
                     <a href="{% url 'books:read' object.id %}" class="btn btn-primary">Start Reading</a>

@@ -79,3 +79,10 @@ body {
 .comment p {
   margin-top: 8px;
 }
+
+.share > i {
+  color: #337ab7;
+  margin: 8px;
+  cursor: hand;
+  cursor: pointer;
+}

@@ -317,6 +317,40 @@ def book_unbookmark(request, id):
         return res
 
 @login_required
+def book_share(request, id):
+    """Take the id of the book to share"""
+    try:
+        # Get the logged in user
+        user = request.user
+
+        # Get the Book to read
+        book = get_object_or_404(Book, pk=id)
+
+        # If the book is in the user history
+        if user.history.books_action.filter(book=book).exists():
+            book_history = user.history.books_action.get(book=book)
+
+            if not book_history.shared:
+                book_history.shared = True
+                book_history.save()
+
+        else:
+            book_history = BookHistory(book=book)
+            book_history.shared = True
+            book_history.save()
+            user.history.books_action.add(book_history)
+
+
+        return JsonResponse({'message': 'book {0} is shared by the user {1}'.format(book.name, user.username)})
+
+    except:
+        res = JsonResponse({'message': 'error'})
+        res.status_code = 400
+        return res
+
+
+
+@login_required
 def add_comment(request):
     if request.method == 'POST':
         form = CommentCreateForm(request.POST)
