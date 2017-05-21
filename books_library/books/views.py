@@ -119,12 +119,14 @@ class BookDetailView(DetailView):
             # in the user history field
             if not user.history.books_action.filter(book=book).exists():
                 book_actions = BookHistory(book=book, viewed=True)
+                book_actions.score += 1
                 book_actions.save()
                 user.history.books_action.add(book_actions)
             else:
                 books_action = user.history.books_action.get(book=book)
                 if not books_action.viewed:
                     books_action.viewed = True
+                    books_action.score += 1
                     books_action.save()
 
         return book
@@ -159,11 +161,13 @@ def book_read(request, id):
         book_action = user.history.books_action.get(book=book)
         if not book_action.read:
             book_action.read = True
+            book_action.score += 1
             book_action.save()
 
     else:
         book_action = BookHistory(book=book)
         book_action.read = True
+        book_action.score += 1
         book_action.save()
         user.history.books_action.add(book_action)
 
@@ -187,6 +191,7 @@ def book_like(request, id):
 
             if not book_history.liked:
                 book_history.liked = True
+                book_history.score += 1
                 book_history.save()
 
                 book.likes.add(user)
@@ -198,6 +203,7 @@ def book_like(request, id):
         else:
             book_history = BookHistory(book=book)
             book_history.liked = True
+            book_history.score += 1
             book_history.save()
             user.history.books_action.add(book_history)
 
@@ -264,6 +270,7 @@ def book_bookmark(request, id):
 
             if not book_history.bookmarked:
                 book_history.bookmarked = True
+                book_history.score += 1
                 book_history.save()
 
             else:
@@ -273,6 +280,7 @@ def book_bookmark(request, id):
         else:
             book_history = BookHistory(book=book)
             book_history.bookmarked = True
+            book_history.score += 1
             book_history.save()
             user.history.books_action.add(book_history)
 
@@ -332,11 +340,13 @@ def book_share(request, id):
 
             if not book_history.shared:
                 book_history.shared = True
+                book_history.score += 1
                 book_history.save()
 
         else:
             book_history = BookHistory(book=book)
             book_history.shared = True
+            book_history.score += 1
             book_history.save()
             user.history.books_action.add(book_history)
 
