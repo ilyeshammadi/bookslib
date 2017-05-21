@@ -30,7 +30,10 @@ urlpatterns = [
 
     # Books
     url(r'^books/', include('books_library.books.urls', namespace='books')),
-    url(r'^suggestions$', suggestion, name="suggestion")
+    url(r'^suggestions$', suggestion, name="suggestion"),
+
+    # Navigations
+    url(r'^navigation/', include('books_library.navigation.urls', namespace="navigation")),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

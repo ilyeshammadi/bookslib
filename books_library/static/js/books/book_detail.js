@@ -79,3 +79,21 @@ $('#linkedin').click(function () {
         linkedinShare();
     });
 });
+
+
+$('.notification').click(function (e) {
+
+    const $notification = $(e.target);
+    const noti_id = $notification.attr('id');
+
+    //Set the notification as viewed
+    $.get('/navigation/notification/viewed/' + noti_id).done(function () {
+        setTimeout(function () {
+            $notification.addClass('noti-viewed');
+        }, 2000);
+        console.log('viewed')
+    });
+
+
+
+});

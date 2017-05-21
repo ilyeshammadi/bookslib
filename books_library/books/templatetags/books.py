@@ -36,3 +36,6 @@ def isNegative(comment):
 def isNeutral(comment):
     return comment.sentiment == NEUTRAL
 
+@register.filter('notViewedCounter')
+def notViewedCounter(notifications):
+    return len(notifications.filter(viewed=False))

@@ -116,7 +116,7 @@
                     <div class="comments list-group">
                         {% if request.user.is_superuser %}
                             {% for comment in book.comments.all %}
-                                <div class="comment-container row">
+                                <div id="{{ comment.id }}" class="comment-container row">
                                     {% if request.user.is_superuser %}
                                         <div class="emotion col-xs-1">
                                             {% if comment|isPositive %}
@@ -139,7 +139,7 @@
                             {% endfor %}
                         {% else %}
                             {% for comment in book.comments.all %}
-                                <div class="comment-container">
+                                <div id="{{ comment.id }}" class="comment-container">
                                     {% if request.user.is_superuser %}
                                         <div class="emotion">
                                             {% if comment|isPositive %}

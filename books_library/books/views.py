@@ -380,8 +380,8 @@ def add_comment(request):
             book.comments.add(comment)
 
             users = User.objects.filter(history__books_action__book=book).distinct().exclude(username__exact=request.user.username)
-            link = reverse('books:detail', kwargs={'slug': book.slug})
-            content = '{0} has commented on {1}'.format(request.user.username, book.name)
+            link = reverse('books:detail', kwargs={'slug': book.slug}) + '#{0}'.format(comment.id)
+            content = 'has commented on {1}'.format(request.user.username, book.name)
             for user in users:
                 user.notify(sender=request.user, content=content, link=link)
 

@@ -88,10 +88,14 @@
 #notifications li {
   padding: 16px;
   background-color: rgba(33, 150, 243, 0.04);
+  transition: background 0.2s ease;
 }
 
+#notifications li:hover {
+  background-color: rgba(33, 150, 243, 0.15) !important;
+}
 .noti-viewed {
-  background-color: white;
+  background-color: white !important;
 }
 
 .media {
@@ -99,8 +103,28 @@
   cursor: pointer;
 }
 
-
 .navbar li {
   cursor: hand;
   cursor: pointer;
+}
+
+#notif-counter {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 8px;
+  left: 21px;
+  border: 1px solid red;
+  border-radius: 200%;
+  background-color: red;
+  color: white;
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.noti-sender {
+  font-weight: bold;
 }

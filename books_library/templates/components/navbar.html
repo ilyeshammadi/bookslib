@@ -1,4 +1,4 @@
-{% load staticfiles i18n %}
+{% load staticfiles i18n books %}
 <nav id="navbar" class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -36,23 +36,22 @@
                     <li><a href="{% url 'suggestion' %}"><i class="ion-ios-paper-outline"></i>Feed</a></li>
                     <li>
                         <a type="button" class="dropdown-toggle" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"><i class="ion-android-notifications-none"></i>Notifications {{ request.user.history.notifications.all|length }}
+                           aria-haspopup="true" aria-expanded="false"><span id="notif-counter">{{ request.user.history.notifications|notViewedCounter }}</span> <i class="ion-android-notifications-none"></i>
                         </a>
                         <ul id="notifications" class="dropdown-menu">
                             {% for noti in request.user.history.notifications.all %}
-                                <li class="{% if noti.viewed %}
+                                <li id="{{ noti.id }}" class="{% if noti.viewed %}
                                     noti-viewed
-                                {% endif %}">
+                                {% endif %} notification">
                                     <div class="media" onclick="window.location.href = '{{ noti.link }}'">
                                         <div class="media-left">
                                             <a href="{{ noti.link }}">
                                                 <img class="media-object img-circle" src="{{ noti.sender.image.url }}"
-                                                     alt="..." height="42">
+                                                     alt="{{ noti.sender.usernme }}" height="42">
                                             </a>
                                         </div>
                                         <div class="media-body">
-                                            <h4 class="media-heading">{{ noti.sender.username }}</h4>
-                                            {{ noti.content }}
+                                            <a class="noti-sender" href="{{ noti.sender.get_absolute_url }}">{{ noti.sender.username }}</a> {{ noti.content }}
                                         </div>
                                     </div>
                                 </li>
