@@ -75,8 +75,25 @@
   margin-top: 110px;
 }
 
-#search-bar-container div input {
-  border-radius: 5px;
+#search-bar input {
+  border-radius: 50px;
+  padding-left: 35px;
+  background-color: #F4F4F4;
+  transition: width 0.2s ease, background 0.15s ease;
+}
+
+#search-bar input:focus, #search-bar input:active {
+  width: 30vw;
+  box-shadow: none !important;
+  background-color: white;
+}
+
+#search-bar i {
+  position: absolute;
+  z-index: 999;
+  top: 2px;
+  left: 12px;
+  font-size: 22px;
 }
 
 #notifications {
@@ -94,6 +111,7 @@
 #notifications li:hover {
   background-color: rgba(33, 150, 243, 0.15) !important;
 }
+
 .noti-viewed {
   background-color: white !important;
 }
@@ -123,7 +141,6 @@
   justify-content: center;
   align-items: center;
 }
-
 
 .noti-sender {
   font-weight: bold;

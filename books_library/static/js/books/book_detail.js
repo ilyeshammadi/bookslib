@@ -81,7 +81,7 @@ $('#linkedin').click(function () {
 });
 
 
-$('.notification').click(function (e) {
+$('.notification').hover(function (e) {
 
     const $notification = $(e.target);
     const noti_id = $notification.attr('id');

@@ -21,7 +21,8 @@
                 {% csrf_token %}
                 <div id="search-bar-container">
                     <div class="input-group" id="search-bar">
-                        <input type="text" class="form-control" placeholder="Title, Author, Tags..."
+                        <i class="ion-search"></i>
+                        <input type="text" class="form-control" placeholder="Search by Title, Author, Tags..."
                                name="search" {% if search %}
                                value="{{ search }}"
                         {% endif %}>
@@ -51,7 +52,7 @@
                                             </a>
                                         </div>
                                         <div class="media-body">
-                                            <a class="noti-sender" href="{{ noti.sender.get_absolute_url }}">{{ noti.sender.username }}</a> {{ noti.content }}
+                                            <a class="q" href="{{ noti.sender.get_absolute_url }}">{{ noti.sender.username }}</a> {{ noti.content }}
                                         </div>
                                     </div>
                                 </li>
