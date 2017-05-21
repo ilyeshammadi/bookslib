@@ -43,6 +43,12 @@ class Comment(models.Model):
     content = models.TextField()
     sentiment = models.CharField(max_length=50, choices=choices, default=choices[2][0])
 
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+
+    class Meta:
+        ordering = ('-created',)
+
     def __str__(self):
         return "{0} -- {1}".format(self.user, self.content[:20])
 
