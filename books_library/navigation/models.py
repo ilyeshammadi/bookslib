@@ -65,6 +65,7 @@ class History(models.Model):
     social_data = models.ManyToManyField(SocialData)
     notifications = models.ManyToManyField(Notification)
 
+    has_chosed_topics = models.BooleanField(default=False)
 
     def __str__(self):
         return 'History id: {0}'.format(self.id)

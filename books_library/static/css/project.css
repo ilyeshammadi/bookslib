@@ -145,3 +145,12 @@
 .noti-sender {
   font-weight: bold;
 }
+
+.navbar-brand i {
+  display: inline-block;
+  font-size: 26px;
+  vertical-align: sub;
+
+}
+
+

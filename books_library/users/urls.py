@@ -46,4 +46,9 @@ urlpatterns = [
         view=views.remove_twitter_data,
         name='twitter_remove'
     ),
+    url(
+        regex=r'^topics',
+        view=views.topics,
+        name='topics'
+    ),
 ]

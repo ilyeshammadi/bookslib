@@ -2,6 +2,9 @@
 from __future__ import absolute_import, unicode_literals
 
 import sys
+
+from books_library.books.models import Category
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
@@ -10,10 +13,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, ListView, RedirectView, UpdateView
-
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.dispatch import receiver
+
+from allauth.account.signals import email_confirmed
+
 
 from books_library.navigation.models import BookHistory, SocialData
 from books_library.users.forms import UpdateProfileForm
@@ -69,7 +75,12 @@ class UserRedirectView(LoginRequiredMixin, RedirectView):
     permanent = False
 
     def get_redirect_url(self):
-        return reverse('suggestion')
+
+        # If the user has choosed topics
+        if self.request.user.history.has_chosed_topics:
+            return reverse('suggestion')
+        else:
+            return reverse('users:topics')
 
 class UserUpdateView(LoginRequiredMixin, UpdateView):
 
@@ -181,3 +192,16 @@ def remove_twitter_data(request):
     else:
         messages.error(request, 'You dont have a twitter data asociated with your account')
         return redirect('users:update')
+
+
+@login_required
+def topics(request):
+    # request.user.history.has_chosed_topics = True
+    # request.user.history.save()
+    categories = Category.objects.all()
+    return render(request, 'users/topics.html', {'categories' : categories})
+
+@receiver(email_confirmed)
+def email_confirmed(email_address, **kwargs):
+    # Should redirect to choose topics
+    return redirect('users:topics')

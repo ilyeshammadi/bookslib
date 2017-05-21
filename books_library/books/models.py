@@ -27,6 +27,7 @@ class Category(models.Model):
     # Fields
     name = models.CharField(max_length=255)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
+    image = models.ImageField(upload_to='categories/')
 
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block css %}
+    {{ block.super }}
+    <style>
+        .cat {
+            height: 35vh;
+            background-size: cover;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+
+        .cat h1 {
+            color: white;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        {% for category in categories %}
+            <div class="row">
+                <div class="cat col-md-8 col-md-offset-2"
+                     style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)), url({{ category.image.url }})">
+                    <h1>{{ category.name }}</h1>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
