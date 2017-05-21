@@ -1,5 +1,8 @@
 from __future__ import unicode_literals
 
+import json
+
+import requests
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from django.core.urlresolvers import reverse
@@ -15,8 +18,12 @@ from django_extensions.db import fields as extension_fields
 
 from languages.fields import LanguageField
 
-class Category(models.Model):
+from books_library.navigation.sentiment import NEUTRAL, NEGATIVE, POSITIVE
 
+choices = [(POSITIVE, POSITIVE), (NEGATIVE, NEGATIVE), (NEUTRAL, NEUTRAL)]
+
+
+class Category(models.Model):
     # Fields
     name = models.CharField(max_length=255)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
@@ -31,18 +38,16 @@ class Category(models.Model):
         return u'%s' % self.slug
 
 
-
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     content = models.TextField()
+    sentiment = models.CharField(max_length=50, choices=choices, default=choices[2][0])
 
     def __str__(self):
         return "{0} -- {1}".format(self.user, self.content[:20])
 
 
-
 class Book(models.Model):
-
     # Fields
     name = models.CharField(max_length=255)
     author = models.CharField(max_length=255, default='no-author')

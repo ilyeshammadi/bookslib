@@ -1,5 +1,7 @@
 from django import template
 
+from books_library.navigation.sentiment import POSITIVE, NEUTRAL, NEGATIVE
+
 register = template.Library()
 
 
@@ -20,3 +22,17 @@ def hasTwitter(user):
 @register.filter('isBookmarked')
 def isBookmarked(book, user):
     return user.history.books_action.filter(book=book, bookmarked=True).exists()
+
+
+@register.filter('isPositive')
+def isPositive(comment):
+    return comment.sentiment == POSITIVE
+
+@register.filter('isNegative')
+def isNegative(comment):
+    return comment.sentiment == NEGATIVE
+
+@register.filter('isNeutral')
+def isNeutral(comment):
+    return comment.sentiment == NEUTRAL
+

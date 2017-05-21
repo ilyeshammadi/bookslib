@@ -105,7 +105,6 @@
   margin-top: 2px;
 }
 
-
 .indication-icon {
   height: 60vh;
   display: flex;
@@ -122,4 +121,25 @@
 .indication-icon > h3 {
   font-size: 24px;
   color: #888;
+}
+
+.emotion {
+  display: inline-block;
+  font-size: 30px;
+}
+
+.pos, .neg, .neutral {
+  vertical-align: sub;
+}
+
+.pos {
+  color: green;
+}
+
+.neg {
+  color: red;
+}
+
+.neutral {
+  color: cornflowerblue;
 }

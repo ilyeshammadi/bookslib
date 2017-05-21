@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.views.generic import CreateView, UpdateView, DetailView
 from django.contrib import messages
 
-
+from books_library.navigation.sentiment import get_sentiment, POSITIVE
 from books_library.users.models import User
 from .forms import BookForm, CommentCreateForm
 from .models import Book, Category
@@ -371,7 +371,16 @@ def add_comment(request):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = request.user
+            sentiment = get_sentiment(comment.content)
+            comment.sentiment = sentiment
             comment.save()
+
+
+
+            if sentiment == POSITIVE:
+                books_action = request.user.history.books_action.get(book=book)
+                books_action.score += 1
+                books_action.save()
 
             book.comments.add(comment)
 

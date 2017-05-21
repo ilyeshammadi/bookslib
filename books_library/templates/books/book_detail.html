@@ -114,15 +114,55 @@
                         <button id="cancel" class="btn btn-default">Cancel</button>
                     </form>
                     <div class="comments list-group">
-                        {% for comment in book.comments.all %}
-                            <div class="comment list-group-item">
-                                <img src="{{ comment.user.image.url }}" alt="">
-                                <h3>
-                                    <a href="{% url 'users:detail' comment.user.username %}">{{ comment.user.username }}</a>
-                                </h3>
-                                <p>{{ comment.content }}</p>
-                            </div>
-                        {% endfor %}
+                        {% if request.user.is_superuser %}
+                            {% for comment in book.comments.all %}
+                                <div class="comment-container row">
+                                    {% if request.user.is_superuser %}
+                                        <div class="emotion col-xs-1">
+                                            {% if comment|isPositive %}
+                                                <i class="pos fa fa-smile-o"></i>
+                                            {% elif comment|isNegative %}
+                                                <i class="neg fa fa-frown-o"></i>
+                                            {% elif comment|isNeutral %}
+                                                <i class="neutral fa fa-meh-o"></i>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                    <div class="comment list-group-item col-xs-11">
+                                        <img src="{{ comment.user.image.url }}" alt="">
+                                        <h3>
+                                            <a href="{% url 'users:detail' comment.user.username %}">{{ comment.user.username }}</a>
+                                        </h3>
+                                        <p>{{ comment.content }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {% for comment in book.comments.all %}
+                                <div class="comment-container">
+                                    {% if request.user.is_superuser %}
+                                        <div class="emotion">
+                                            {% if comment|isPositive %}
+                                                <i class="pos fa fa-smile-o"></i>
+                                            {% elif comment|isNegative %}
+                                                <i class="neg fa fa-frown-o"></i>
+                                            {% elif comment|isNeutral %}
+                                                <i class="neutral fa fa-meh-o"></i>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                    <div class="comment list-group-item">
+                                        <img src="{{ comment.user.image.url }}" alt="">
+                                        <h3>
+                                            <a href="{% url 'users:detail' comment.user.username %}">{{ comment.user.username }}</a>
+                                        </h3>
+                                        <p>{{ comment.content }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+                        {% endif %}
+
 
                     </div>
                 </div>
