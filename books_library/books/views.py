@@ -284,14 +284,12 @@ def book_bookmark(request, id):
             book_history.save()
             user.history.books_action.add(book_history)
 
-
         return JsonResponse({'message': 'book {0} is bookmarked by the user {1}'.format(book.name, user.username)})
 
     except:
         res = JsonResponse({'message': 'error'})
         res.status_code = 400
         return res
-
 
 
 @login_required
@@ -324,6 +322,7 @@ def book_unbookmark(request, id):
         res.status_code = 400
         return res
 
+
 @login_required
 def book_share(request, id):
     """Take the id of the book to share"""
@@ -350,14 +349,12 @@ def book_share(request, id):
             book_history.save()
             user.history.books_action.add(book_history)
 
-
         return JsonResponse({'message': 'book {0} is shared by the user {1}'.format(book.name, user.username)})
 
     except:
         res = JsonResponse({'message': 'error'})
         res.status_code = 400
         return res
-
 
 
 @login_required
@@ -375,14 +372,18 @@ def add_comment(request):
             comment.sentiment = sentiment
             comment.save()
 
-
-
             if sentiment == POSITIVE:
                 books_action = request.user.history.books_action.get(book=book)
                 books_action.score += 1
                 books_action.save()
 
             book.comments.add(comment)
+
+            users = User.objects.filter(history__books_action__book=book).distinct().exclude(username__exact=request.user.username)
+            link = reverse('books:detail', kwargs={'slug': book.slug})
+            content = '{0} has commented on {1}'.format(request.user.username, book.name)
+            for user in users:
+                user.notify(sender=request.user, content=content, link=link)
 
             messages.success(request, 'Comment created')
 

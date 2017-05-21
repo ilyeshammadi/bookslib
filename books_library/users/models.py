@@ -7,7 +7,8 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-from books_library.navigation.models import History
+from books_library.navigation.models import History, Notification
+
 
 @python_2_unicode_compatible
 class User(AbstractUser):
@@ -35,4 +36,8 @@ class User(AbstractUser):
         super(User, self).save(*args, **kwargs)
 
 
+    def notify(self, sender, content, link):
+        noti = Notification(sender=sender, content=content, link=link)
+        noti.save()
 
+        self.history.notifications.add(noti)

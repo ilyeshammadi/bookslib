@@ -44,10 +44,24 @@ class SocialData(models.Model):
         return 'id: {0}, corpus: {1}'.format(self.id, self.corpus[:30])
 
 
+class Notification(models.Model):
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL)
+    content = models.TextField()
+    link = models.URLField()
+    viewed = models.BooleanField(default=False)
+
+    created = models.DateTimeField(auto_now_add=True, editable=False)
+    last_updated = models.DateTimeField(auto_now=True, editable=False)
+
+    def __str__(self):
+        return '{0}'.format(self.content)
+
 class History(models.Model):
     searchs = models.ManyToManyField(Search)
     books_action = models.ManyToManyField(BookHistory)
     social_data = models.ManyToManyField(SocialData)
+    notifications = models.ManyToManyField(Notification)
+
 
     def __str__(self):
         return 'History id: {0}'.format(self.id)

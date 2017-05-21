@@ -78,3 +78,29 @@
 #search-bar-container div input {
   border-radius: 5px;
 }
+
+#notifications {
+  width: 33vw;
+  max-height: 40vh;
+  overflow: auto;
+}
+
+#notifications li {
+  padding: 16px;
+  background-color: rgba(33, 150, 243, 0.04);
+}
+
+.noti-viewed {
+  background-color: white;
+}
+
+.media {
+  cursor: hand;
+  cursor: pointer;
+}
+
+
+.navbar li {
+  cursor: hand;
+  cursor: pointer;
+}
