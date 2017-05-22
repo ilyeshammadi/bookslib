@@ -153,4 +153,19 @@
 
 }
 
+#no-noti {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: grey;
+}
 
+#no-noti i {
+  font-size: 60px;
+}
+
+#no-noti p {
+  font-size: 22px;
+}

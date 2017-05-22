@@ -32,9 +32,14 @@ def add_topics(request):
         topic_ids = request.POST.get('topic_ids')
         ids = topic_ids.split('-')
 
+        # Save each pref
         for id in ids:
             cat = Category.objects.get(pk=id)
             request.user.history.preferd_topics.add(cat)
+
+        # User has made his pref
+        request.user.history.has_chosed_topics = True
+        request.user.history.save()
 
         return redirect('books:index')
 

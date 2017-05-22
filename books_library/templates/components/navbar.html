@@ -37,26 +37,43 @@
                     <li><a href="{% url 'suggestion' %}"><i class="ion-ios-paper-outline"></i>Feed</a></li>
                     <li>
                         <a type="button" class="dropdown-toggle" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"><span id="notif-counter">{{ request.user.history.notifications|notViewedCounter }}</span> <i class="ion-android-notifications-none"></i>
+                           aria-haspopup="true" aria-expanded="false"><span
+                                id="notif-counter">{{ request.user.history.notifications|notViewedCounter }}</span> <i
+                                class="ion-android-notifications-none"></i>
                         </a>
                         <ul id="notifications" class="dropdown-menu">
-                            {% for noti in request.user.history.notifications.all %}
-                                <li id="{{ noti.id }}" class="{% if noti.viewed %}
+
+                            {% if request.user.history.notifications.all|length > 0 %}
+                                {% for noti in request.user.history.notifications.all %}
+                                    <li id="{{ noti.id }}" class="{% if noti.viewed %}
                                     noti-viewed
                                 {% endif %} notification">
-                                    <div class="media" onclick="window.location.href = '{{ noti.link }}'">
-                                        <div class="media-left">
-                                            <a href="{{ noti.link }}">
-                                                <img class="media-object img-circle" src="{{ noti.sender.image.url }}"
-                                                     alt="{{ noti.sender.usernme }}" height="42">
-                                            </a>
+                                        <div class="media" onclick="window.location.href = '{{ noti.link }}'">
+                                            <div class="media-left">
+                                                <a href="{{ noti.link }}">
+                                                    <img class="media-object img-circle"
+                                                         src="{{ noti.sender.image.url }}"
+                                                         alt="{{ noti.sender.usernme }}" height="42">
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <a class="q"
+                                                   href="{{ noti.sender.get_absolute_url }}">{{ noti.sender.username }}</a> {{ noti.content }}
+                                            </div>
                                         </div>
-                                        <div class="media-body">
-                                            <a class="q" href="{{ noti.sender.get_absolute_url }}">{{ noti.sender.username }}</a> {{ noti.content }}
-                                        </div>
-                                    </div>
-                                </li>
-                            {% endfor %}
+                                    </li>
+                                {% endfor %}
+
+                            {% else %}
+
+                                <div id="no-noti">
+                                    <i class="ion-android-notifications-none"></i>
+                                    <p>No notifications</p>
+                                </div>
+
+
+                            {% endif %}
+
 
                         </ul>
                     </li>
