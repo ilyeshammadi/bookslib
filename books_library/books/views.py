@@ -18,6 +18,7 @@ from ..navigation.models import Search, BookHistory
 def index(request, category_slug=None, search_terms=None):
     # Get all the books
     books = Book.objects.all()
+    books_length = len(books)
 
     # Get all users
     users = User.objects.all()
@@ -55,6 +56,9 @@ def index(request, category_slug=None, search_terms=None):
             q_books |= Q(tags__name__contains=term)
 
         books = books.filter(q_books).distinct()
+
+        books_length = len(books)
+
 
         # Decalre an empty query
         q_users = Q()
@@ -96,7 +100,8 @@ def index(request, category_slug=None, search_terms=None):
         'categories': categories,
         'users': users,
         'category_slug': category_slug,
-        'search': search
+        'search': search,
+        'books_length' : books_length
     }
     return render(request, 'books/index.html', context)
 

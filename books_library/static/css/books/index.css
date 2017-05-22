@@ -143,3 +143,20 @@
 .neutral {
   color: cornflowerblue;
 }
+
+.options {
+  float: right;
+}
+
+.options .btn{
+  margin: 22px;
+  font-size: 22px;
+  color: grey;
+  border: none;
+}
+
+
+.options ul {
+  top: 70px !important;
+  left: inherit !important;
+}
