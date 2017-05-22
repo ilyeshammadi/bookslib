@@ -13,8 +13,10 @@ from books_library.recomendation.views import suggestion
 from books_library.graphql_api.schema import schema
 from books_library.graphql_api.views import PrivateGraphQLView
 
+from books_library.users.views import is_logged_in
+
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
+    url(r'^$',is_logged_in, name='home'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
 
     # Django Admin, use {% url 'admin:index' %}

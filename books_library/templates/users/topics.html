@@ -24,7 +24,7 @@
         }
 
         .selected {
-            border: 3px solid deepskyblue;
+            opacity: 0.6;
         }
 
         #confirm {
@@ -48,6 +48,10 @@
         .container h2 {
             text-align: center;
             margin-bottom: 34px;
+        }
+
+        .cat-container {
+            background-color: #009bcd;
         }
 
     </style>
@@ -89,10 +93,16 @@
         <h2>Choose Your Prefered Topics</h2>
         {% for category in categories %}
             <div class="row">
-                <div id="{{ category.id }}" class="cat col-md-8 col-md-offset-2"
-                     style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)), url({{ category.image.url }})">
-                    <h1>{{ category.name }}</h1>
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="cat-container">
+                        <div id="{{ category.id }}" class="cat"
+                             style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)), url({{ category.image.url }})">
+                            <h1>{{ category.name }}</h1>
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
         {% endfor %}
 

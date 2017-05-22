@@ -207,3 +207,10 @@ def topics(request):
 def email_confirmed(email_address, **kwargs):
     # Should redirect to choose topics
     return redirect('users:topics')
+
+
+def is_logged_in(request):
+    if request.user.is_authenticated():
+        return redirect('suggestion')
+    else:
+        return render(request, 'pages/home.html')
