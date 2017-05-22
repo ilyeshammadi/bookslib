@@ -8,7 +8,7 @@
 
   padding: 25%;
 
-  background-image: url("/static/images/home-cover.jpg");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("/static/images/home-cover.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 
@@ -55,7 +55,6 @@ body {
 .navbar-wrapper .navbar .container {
   width: auto;
 }
-
 
 /* MARKETING CONTENT
 -------------------------------------------------- */
@@ -131,8 +130,31 @@ body {
   }
 }
 
-
 .featurette img {
   height: 500px;
   object-fit: cover;
+}
+
+.start-container {
+  margin-top: 18px;
+}
+
+.start {
+  display: inline-block;
+  padding: 10px 30px;
+  font-weight: 300;
+  text-decoration: none !important;
+  border-radius: 200px;
+  transition: background-color 0.2s, border 0.2s, color 0.2s;
+  margin-right: 15px;
+  border: 1px solid #009ad3;
+  color: white;
+  font-size: 16px;
+}
+
+.start:hover {
+  background-color: #009ad3;
+  border: 1px solid #009ad3;
+  color: #fff;
+
 }

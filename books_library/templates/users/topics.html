@@ -45,6 +45,11 @@
             background-color: #00a7e2;
         }
 
+        .container h2 {
+            text-align: center;
+            margin-bottom: 34px;
+        }
+
     </style>
 {% endblock %}
 
@@ -54,7 +59,7 @@
     <script>
         cat_ids = new Set();
         $('.cat').click(function () {
-            if($(this).hasClass('selected')) {
+            if ($(this).hasClass('selected')) {
                 $(this).removeClass('selected');
                 const id = $(this).attr('id');
                 cat_ids.delete(id);
@@ -81,6 +86,7 @@
 
 {% block content %}
     <div class="container">
+        <h2>Choose Your Prefered Topics</h2>
         {% for category in categories %}
             <div class="row">
                 <div id="{{ category.id }}" class="cat col-md-8 col-md-offset-2"
