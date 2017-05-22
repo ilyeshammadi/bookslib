@@ -4,7 +4,8 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 
-from books_library.books.models import Book
+from books_library.books.models import Book, Category
+
 
 # Create your models here.
 
@@ -64,6 +65,8 @@ class History(models.Model):
     books_action = models.ManyToManyField(BookHistory)
     social_data = models.ManyToManyField(SocialData)
     notifications = models.ManyToManyField(Notification)
+
+    preferd_topics = models.ManyToManyField(Category)
 
     has_chosed_topics = models.BooleanField(default=False)
 

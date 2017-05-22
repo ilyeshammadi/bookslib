@@ -12,7 +12,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            
+
+            cursor: pointer;
+            cursor: hand;
         }
 
         .cat h1 {
@@ -20,7 +22,60 @@
             text-transform: uppercase;
             font-weight: 300;
         }
+
+        .selected {
+            border: 3px solid deepskyblue;
+        }
+
+        #confirm {
+            display: flex;
+            justify-content: center;
+            margin: 24px;
+        }
+
+        #confirm button {
+            padding: 24px;
+            background-color: white;
+            border: 1px solid deepskyblue;
+            border-radius: 5px;
+        }
+
+        #confirm button:hover {
+            color: white;
+            background-color: #00a7e2;
+        }
+
     </style>
+{% endblock %}
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script>
+        cat_ids = new Set();
+        $('.cat').click(function () {
+            if($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                const id = $(this).attr('id');
+                cat_ids.delete(id);
+            } else {
+                $(this).addClass('selected');
+                const id = $(this).attr('id');
+                cat_ids.add(id);
+            }
+        });
+
+        $('#confirm > button').click(function () {
+            console.log(Array.from(cat_ids).join('-'));
+
+            topic_ids = Array.from(cat_ids).join('-');
+
+            $.post('/navigation/topics_add/', {'topic_ids': topic_ids}).done(function () {
+                window.location.href = '{% url 'suggestion' %}';
+            });
+        });
+
+    </script>
 {% endblock %}
 
 
@@ -28,11 +83,16 @@
     <div class="container">
         {% for category in categories %}
             <div class="row">
-                <div class="cat col-md-8 col-md-offset-2"
+                <div id="{{ category.id }}" class="cat col-md-8 col-md-offset-2"
                      style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2)), url({{ category.image.url }})">
                     <h1>{{ category.name }}</h1>
                 </div>
             </div>
         {% endfor %}
+
+        <div id="confirm">
+            <button>Confirm Choices</button>
+        </div>
+
     </div>
 {% endblock %}
