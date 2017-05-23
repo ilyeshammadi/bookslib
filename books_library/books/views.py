@@ -138,7 +138,11 @@ class BookDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(BookDetailView, self).get_context_data(**kwargs)
+        # Setup the commenting form
         context['form'] = CommentCreateForm()
+
+        # Recommended books
+        context['rec_books'] = Book.objects.all()[:10]
         return context
 
 

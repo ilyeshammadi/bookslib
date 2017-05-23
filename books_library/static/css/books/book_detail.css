@@ -38,7 +38,7 @@ body {
   font-weight: 800;
 }
 
-.share > a >i {
+.share > a > i {
   margin-left: 8px;
 }
 
@@ -85,4 +85,42 @@ body {
   margin: 8px;
   cursor: hand;
   cursor: pointer;
+}
+
+.rec-book-container {
+  overflow: auto;
+}
+
+.rec-book-container div {
+  width: 1245px;
+}
+
+.rec-book-name {
+  margin: 16px;
+}
+
+.rec-book {
+  display: inline;
+}
+
+.rec-book span {
+  display: inline-grid;
+  text-align: center;
+  cursor: pointer;
+  cursor: hand;
+  transition: color 0.1s ease;
+}
+
+.rec-book span span {
+  max-width: 90px;
+  margin-left: 17px;
+}
+
+.rec-book span:hover {
+  color: #3b8bd1;
+}
+
+.rec-book-img {
+  height: 140px;
+  margin: 16px;
 }

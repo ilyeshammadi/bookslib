@@ -84,6 +84,22 @@
             </div>
         </div>
 
+        <div class="thumbnail row">
+            <h4 class="rec-book-name">You may also like this books</h4>
+            <div class="rec-book-container">
+                <div>
+                    {% for book in rec_books %}
+                        <div class="rec-book">
+                        <span onclick="window.location.href = '{{ book.get_absolute_url }}'">
+                            <img class="rec-book-img" src="{{ book.get_thulbnail }}" alt="">
+                            <span>{{ book.name|truncatechars:40 }}</span>
+                        </span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
         <div id="book-detail-infos" class="thumbnail row">
             <h4>Book Details</h4>
             <ul class="book-infos">

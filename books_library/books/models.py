@@ -103,3 +103,12 @@ class Book(models.Model):
 
     def get_update_url(self):
         return reverse('books:update', args=(self.slug,))
+
+
+    def get_thulbnail(self):
+        if self.thumbnail_url:
+            return self.thumbnail_url
+        elif self.thumbnail:
+            return self.thumbnail
+        else:
+            return None
