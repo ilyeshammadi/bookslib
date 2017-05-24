@@ -95,5 +95,47 @@ $('.notification').hover(function (e) {
     });
 
 
+});
 
+
+String.prototype.replaceAt = function (index, replacement) {
+    return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+}
+
+
+var openPhotoSwipe = function () {
+    var pswpElement = document.querySelectorAll('.pswp')[0];
+
+    const temp = imagePath.split('.');
+    temp [4] = temp[4].replaceAt(0, 'L');
+    imagePath = temp.join('.');
+    console.log(imagePath);
+
+
+    // build items array
+    var items = [
+        {
+            src: imagePath,
+            w: 380,
+            h: 540
+        },
+    ];
+
+    // define options (if needed)
+    var options = {
+        // history & focus options are disabled on CodePen
+        history: false,
+        focus: false,
+
+        showAnimationDuration: 0,
+        hideAnimationDuration: 0
+
+    };
+
+    var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+    gallery.init();
+};
+
+$('.book-image').click(function () {
+    openPhotoSwipe();
 });
