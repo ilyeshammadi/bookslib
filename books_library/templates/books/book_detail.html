@@ -40,7 +40,7 @@
                     <i id="linkedin" class="fa fa-linkedin fa-2x"></i>
                 </div>
                 <div class="actions">
-                    <a href="{% url 'books:read' object.id %}" class="btn btn-primary">Start Reading</a>
+                    <a href="{% url 'books:read' object.slug %}" class="btn btn-primary">Start Reading</a>
                     {% if request.user.is_superuser %}
                         <a href="{% url 'books:update' book %}" class="btn btn-primary">Update</a>
                     {% endif %}

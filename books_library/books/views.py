@@ -1,3 +1,5 @@
+import random
+
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import JsonResponse
@@ -145,6 +147,10 @@ class BookDetailView(DetailView):
         context['rec_books'] = Book.objects.all()[:10]
         return context
 
+class BookDetailReadView(BookDetailView):
+    model = Book
+    template_name = 'books/book_read.html'
+
 
 class BookCreateView(CreateView):
     model = Book
@@ -157,13 +163,13 @@ class BookUpdateView(UpdateView):
 
 
 @login_required
-def book_read(request, id):
+def book_read(request, slug):
     """Returns the book link pdf"""
     # Get the logged in user
     user = request.user
 
     # Get the Book to read
-    book = get_object_or_404(Book, pk=id)
+    book = get_object_or_404(Book, slug=slug)
 
     # If the user has a book history
     if user.history.books_action.filter(book=book).exists():
@@ -181,7 +187,7 @@ def book_read(request, id):
         user.history.books_action.add(book_action)
 
     # Return the PDF link
-    return redirect(book.link_to_pdf)
+    return render(request, 'books/book_read.html', {'book' : book})
 
 
 @login_required

@@ -37,7 +37,7 @@ urlpatterns = [
         name='search'
     ),
     url(
-        regex=r'^read/(?P<id>\d+)$',
+        regex=r'^read/(?P<slug>\S+)$',
         view=views.book_read,
         name='read'
     ),

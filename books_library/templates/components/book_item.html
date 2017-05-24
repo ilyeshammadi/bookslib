@@ -14,7 +14,9 @@
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 
-                        <li><a href="{% url 'books:detail' book.slug %}">Update</a></li>
+                        {% if request.user.is_superuser %}
+                            <li><a href="{% url 'books:update' book.slug %}">Update</a></li>
+                        {% endif %}
                     </ul>
                 </div>
 

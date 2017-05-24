@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+    {{ block.super }}
+    <style>
+        .main-content {
+            margin-top: 55px;
+        }
+        .pdfobject-container {
+            height: calc(100vh - 55px);
+        }
+
+        .pdfobject {
+            border: 1px solid #666;
+        }
+    </style>
+{% endblock %}
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script src="{% static 'dep/pdfobject/pdfobject.min.js' %}"></script>
+    <script>
+        PDFObject.embed("{{ book.link_to_pdf }}", "#pdf-reader");
+    </script>
+{% endblock %}
+
+
+
+{% block content %}
+    <div id="pdf-reader"></div>
+{% endblock %}
