@@ -8,6 +8,61 @@
         body {
             background-color: #fafafa;
         }
+
+        #tags {
+            position: fixed;
+        }
+
+        .tags {
+            font-size: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            letter-spacing: 0;
+            font-weight: 400;
+            font-style: normal;
+            padding: 0;
+            list-style: none;
+            list-style-image: none;
+        }
+
+        .tag {
+            display: inline-block;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            color: rgba(0, 0, 0, .44);
+            font-size: 13px;
+            letter-spacing: 0;
+            text-decoration: none;
+            background: white;
+            border-radius: 3px;
+            border: 1px solid #f0f0f0;
+            padding: 5px 10px;
+
+            margin-right: 8px;
+            margin-bottom: 8px;
+
+        }
+
+        .tag a {
+            color: grey;
+            text-decoration: none;
+        }
+
+        .tag a:hover {
+            color: black;
+        }
+
+        .tags-container {
+            position: fixed;
+            width: 25vw;
+        }
+
+        .tags-container p {
+            color: rgba(0, 0, 0, .44);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+            padding-bottom: 8px;
+        }
+
     </style>
 {% endblock %}
 
@@ -15,17 +70,31 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div id="books">
+            <div class="col-md-8">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="books">
 
-                    <div class="row">
-                        {% include 'components/book_item.html' %}
+                            <div class="row">
+                                {% include 'components/book_item.html' %}
+                            </div>
+
+                            <div class="row">
+                                {% include 'components/pagination.html' %}
+                            </div>
+
+                        </div>
                     </div>
-
-                    <div class="row">
-                        {% include 'components/pagination.html' %}
-                    </div>
-
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="tags-container">
+                    <p>Tags</p>
+                    <ul class="tags">
+                        {% for tag in tags %}
+                            <li class="tag"><a href="{% url 'books:search' tag.slug %}">{{ tag.name }}</a></li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>

@@ -5,7 +5,9 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 
 # Create your views here.
-from books_library.books.models import Book
+from taggit.models import Tag
+
+from books_library.books.models import Book, Category
 from books_library.navigation.models import BookHistory
 
 
@@ -13,6 +15,8 @@ from books_library.navigation.models import BookHistory
 def suggestion(request):
     """ Suggest books according to the logged in user profile data"""
     books = Book.objects.all()
+    categories = Category.objects.all()
+    tags = Tag.objects.all()
 
     user = request.user
 
@@ -30,6 +34,8 @@ def suggestion(request):
         books = paginator.page(paginator.num_pages)
 
     context = {
-        "books": books
+        "books": books,
+        'categories' : categories,
+        'tags' : tags
     }
     return render(request, 'recomendation/suggestion.html', context)
