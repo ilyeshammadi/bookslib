@@ -19,6 +19,16 @@ body {
 
 .project-name a {
   font-size: 20px;
+  text-decoration: none;
+  color: rgba(0,0,0,.8);
+}
+
+.project-name a:hover {
+  color: #00ab6b;
+}
+
+.author {
+  color: #00ab6b;
 }
 
 #username,

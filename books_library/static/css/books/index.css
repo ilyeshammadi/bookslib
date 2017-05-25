@@ -29,7 +29,7 @@
 }
 
 .book-author > span {
-  color: cornflowerblue;
+  color: #00ab6b;
 }
 
 .book-image-wrapper {
@@ -80,7 +80,7 @@
 
 .book-actions i {
   font-size: 24px;
-  color: green;
+  color: #02b875;
   cursor: pointer;
 }
 
@@ -169,4 +169,5 @@
 
 .read-more:hover {
   color: rgba(0, 0, 0, 0.45);
+  text-decoration: none;
 }
