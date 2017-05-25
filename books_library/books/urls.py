@@ -27,17 +27,17 @@ urlpatterns = [
         name='update'
     ),
     url(
+        regex=r'^search_terms/(?P<search_terms>.+)$',
+        view=views.search_terms,
+        name='search_terms'
+    ),
+    url(
         regex=r'^search/(?P<category_slug>\S+)/(?P<search_terms>.+)$',
         view=views.index,
         name='search'
     ),
     url(
         regex=r'^search/(?P<category_slug>\S+)$',
-        view=views.index,
-        name='search'
-    ),
-    url(
-        regex=r'^search/(?P<search_terms>\s+)$',
         view=views.index,
         name='search'
     ),

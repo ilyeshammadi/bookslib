@@ -92,7 +92,7 @@
                     <p>Tags</p>
                     <ul class="tags">
                         {% for tag in tags %}
-                            <li class="tag"><a href="{% url 'books:search' tag.slug %}">{{ tag.name }}</a></li>
+                            <li class="tag"><a href="{% url 'books:search_terms' tag.slug %}">{{ tag.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>

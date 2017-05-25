@@ -31,6 +31,9 @@ def index(request, category_slug=None, search_terms=None):
     # Init the search terms
     search = None
 
+    print search_terms
+    print category_slug
+
     # If request is post
     if request.method == 'POST':
         search = request.POST.get('search')
@@ -56,6 +59,7 @@ def index(request, category_slug=None, search_terms=None):
             q_books |= Q(name__contains=term)
             q_books |= Q(author__contains=term)
             q_books |= Q(tags__name__contains=term)
+            q_books |= Q(tags__slug__contains=term)
 
         books = books.filter(q_books).distinct()
 
@@ -102,6 +106,93 @@ def index(request, category_slug=None, search_terms=None):
         'categories': categories,
         'users': users,
         'category_slug': category_slug,
+        'search': search,
+        'books_length' : books_length
+    }
+    return render(request, 'books/index.html', context)
+
+def search_terms(request, search_terms=None):
+    # Get all the books
+    books = Book.objects.all()
+    books_length = len(books)
+
+    # Get all users
+    users = User.objects.all()
+
+    # Get all the categories
+    categories = Category.objects.all()
+
+    # Init the search terms
+    search = None
+
+    # If request is post
+    if request.method == 'POST':
+        search = request.POST.get('search')
+
+    # If search by category and search terms
+    if search_terms and search_terms != 'None':
+        search = search_terms
+
+    # Search filter
+    if search:
+        # Split the search into terms
+        terms = search.split('-')
+
+        # Decalre an empty query
+        q_books = Q()
+
+        # Go through each term
+        for term in terms:
+            q_books |= Q(name__contains=term)
+            q_books |= Q(author__contains=term)
+            q_books |= Q(tags__name__contains=term)
+            q_books |= Q(tags__slug__contains=term)
+
+        books = books.filter(q_books).distinct()
+
+        books_length = len(books)
+
+
+        # Decalre an empty query
+        q_users = Q()
+
+        # Go through each term
+        for term in terms:
+            q_users |= Q(name__contains=term)
+            q_users |= Q(username__contains=term)
+            q_users |= Q(email__contains=term)
+
+        users = users.filter(q_users).distinct()
+
+        # If the search has results, save the searched terms
+        if len(books) > 0 and request.user.is_authenticated():
+            # Create a new search history entry and save it into the
+            # logged in user history fields
+            search_history = Search()
+            search_history.terms = search
+            search_history.save()
+
+            # Save the search history with the logged in user
+            request.user.history.searchs.add(search_history)
+
+    # Show 25 contacts per page
+    paginator = Paginator(books, 25)
+
+    page = request.GET.get('page')
+    try:
+        books = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        books = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        books = paginator.page(paginator.num_pages)
+
+    context = {
+        'books': books,
+        'categories': categories,
+        'users': users,
+        'category_slug': '',
         'search': search,
         'books_length' : books_length
     }
