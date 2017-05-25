@@ -36,9 +36,13 @@ class BookHistory(models.Model):
     def __str__(self):
         return "id: {0} book: {1}".format(self.id, self.book.slug)
 
+TWITTER = 'twitter'
+FACEBOOK = 'facebook'
+LINKEDIN = 'linkedin'
+PROVIDERS = [(TWITTER, TWITTER), (FACEBOOK, FACEBOOK), (LINKEDIN, LINKEDIN)]
 
 class SocialData(models.Model):
-    provider = models.CharField(max_length=50)
+    provider = models.CharField(choices=PROVIDERS,max_length=50)
     corpus = models.TextField()
 
     def __str__(self):

@@ -21,7 +21,7 @@ from django.dispatch import receiver
 from allauth.account.signals import email_confirmed
 
 
-from books_library.navigation.models import BookHistory, SocialData
+from books_library.navigation.models import BookHistory, SocialData, TWITTER
 from books_library.users.forms import UpdateProfileForm
 from books_library.users.social import get_tweets
 from .models import User
@@ -147,7 +147,7 @@ def add_twitter_data(request):
 
     user = request.user
     username = request.user.username
-    provider = 'twitter'
+    provider = TWITTER
 
     # Check if the user has not added twitter data before
     if user.history.social_data.filter(provider=provider).exists():
@@ -180,7 +180,7 @@ def add_twitter_data(request):
 @login_required
 def remove_twitter_data(request):
     user = request.user
-    provider = 'twitter'
+    provider = TWITTER
 
     # If user has a twitter social data
     has_social_data = user.history.social_data.filter(provider=provider).exists()
