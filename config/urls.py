@@ -8,12 +8,22 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 from graphene_django.views import GraphQLView
+from rest_framework import routers
 
 from books_library.recomendation.views import suggestion
 from books_library.graphql_api.schema import schema
 from books_library.graphql_api.views import PrivateGraphQLView
+from books_library.users.apis.views import UserViewSet
 
 from books_library.users.views import is_logged_in
+
+
+
+# Define DRF API routers
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+
+
 
 urlpatterns = [
     url(r'^$',is_logged_in, name='home'),
@@ -37,6 +47,9 @@ urlpatterns = [
     # Navigations
     url(r'^navigation/', include('books_library.navigation.urls', namespace="navigation")),
 
+    # DRF API
+    url(r'^api/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
