@@ -66,6 +66,7 @@ function bookmark(bookId, $book) {
             $book.removeClass('bookmark');
             $book.addClass('unbookmark');
 
+            showSnackbar('Item bookmarked');
 
         }).fail(function (err) {
         showMessage(err, ALERT_DANGER);
