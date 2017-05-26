@@ -16,7 +16,7 @@ class BookSearchViewSet(viewsets.ModelViewSet):
     serializer_class = BookSearchSerializer
     pagination_class = BookSearchSetPagination
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('^name', )
+    search_fields = ('^name', '$name')
 
 
 class CommentViewSet(viewsets.ModelViewSet):
