@@ -10,7 +10,7 @@ from django.views import defaults as default_views
 from graphene_django.views import GraphQLView
 from rest_framework import routers
 
-from books_library.books.apis.views import BookViewSet, CommentViewSet
+from books_library.books.apis.views import BookViewSet, CommentViewSet, CategoryViewSet, BookSearchViewSet
 from books_library.recomendation.views import suggestion
 from books_library.graphql_api.schema import schema
 from books_library.graphql_api.views import PrivateGraphQLView
@@ -24,6 +24,8 @@ from books_library.users.views import is_logged_in
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'books', BookViewSet)
+router.register(r'books_search', BookSearchViewSet)
+router.register(r'categoris', CategoryViewSet)
 router.register(r'comments', CommentViewSet)
 
 
