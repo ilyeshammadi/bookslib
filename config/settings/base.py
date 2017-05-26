@@ -54,8 +54,8 @@ THIRD_PARTY_APPS = [
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
     'allauth.socialaccount.providers.twitter',
-    'taggit', # Tags management
-    'languages', # Add language model field
+    'taggit',  # Tags management
+    'languages',  # Add language model field
     'graphene_django'
 ]
 
@@ -124,7 +124,6 @@ DATABASES = {
     'default': env.db('DATABASE_URL', default='postgres:///books_library'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
-
 
 # GENERAL CONFIGURATION
 # ------------------------------------------------------------------------------
@@ -222,7 +221,6 @@ ROOT_URLCONF = 'config.urls'
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
 # PASSWORD VALIDATION
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 # ------------------------------------------------------------------------------
@@ -267,7 +265,6 @@ LOGIN_URL = 'account_login'
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'
 
-
 # Location of root django.contrib.admin URL, use {% url 'admin:index' %}
 ADMIN_URL = r'^admin/'
 
@@ -280,5 +277,7 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 25
 }
