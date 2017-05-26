@@ -5,11 +5,9 @@ from .serializers import BookSerializer, CommentSerializer, CategorySerializer, 
 from ..models import Book, Comment, Category
 
 
-class BookViewSet(viewsets.ModelViewSet):
+class BookViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    filter_backends = (filters.SearchFilter, )
-    search_fields = ('name', '^author', '^categories__name', '^tags__name')
 
 class BookSearchViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()

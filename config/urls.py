@@ -24,7 +24,6 @@ from books_library.users.views import is_logged_in
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'books', BookViewSet)
-router.register(r'books_search', BookSearchViewSet)
 router.register(r'categoris', CategoryViewSet)
 router.register(r'comments', CommentViewSet)
 
@@ -52,6 +51,9 @@ urlpatterns = [
 
     # Navigations
     url(r'^navigation/', include('books_library.navigation.urls', namespace="navigation")),
+
+    # Search API
+    url(r'^api/search/$', BookSearchViewSet.as_view({'get': 'list'}), name='search_api'),
 
     # DRF API
     url(r'^api/', include(router.urls)),

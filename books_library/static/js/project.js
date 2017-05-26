@@ -54,7 +54,7 @@ function search(searchTerms) {
     } else {
         xhr = $.ajax({
             type: "GET",
-            url: "/api/books_search",
+            url: "/api/search/",
             data: "search=" + searchTerms,
             success: function (data) {
                 // Open dropdown
