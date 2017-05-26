@@ -17,15 +17,19 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
             {# Search Item #}
-            <form class="navbar-form navbar-left" method="post" action="{% url 'books:index' %}">
+            <form class="navbar-form navbar-left" method="post" action="{% url 'books:index' %}" autocomplete="off">
                 {% csrf_token %}
                 <div id="search-bar-container">
                     <div class="input-group" id="search-bar">
                         <i class="ion-search"></i>
-                        <input type="text" class="form-control" placeholder="Search by Title, Author, Tags..."
+                        <input id="search-bar-input" type="text" class="form-control" class="dropdown-toggle"
+                               aria-haspopup="true" aria-expanded="false" placeholder="Search by Title, Author, Tags..."
                                name="search" {% if search %}
                                value="{{ search }}"
                         {% endif %}>
+                        <ul id="search-results" class="dropdown-menu">
+
+                        </ul>
                     </div>
                 </div>
             </form>

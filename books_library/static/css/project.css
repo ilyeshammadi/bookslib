@@ -83,6 +83,13 @@
   transition: width 0.2s ease, background 0.15s ease;
 }
 
+#search-results li a {
+  width: 30vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 #search-bar input:focus, #search-bar input:active {
   width: 30vw;
   box-shadow: none !important;
