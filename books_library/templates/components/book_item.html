@@ -48,11 +48,17 @@
                     <hr>
                     <div class="book-actions">
 
-                        {% if book|isliked:request.user %}
-                            <i id="dislike-{{ book.id }}" class="fa fa-heart dislike" aria-hidden="true"></i>
+                        {% if request.user.is_authenticated %}
+                            {% if book|isliked:request.user %}
+                                <i id="dislike-{{ book.id }}" class="fa fa-heart dislike" aria-hidden="true"></i>
+                            {% else %}
+                                <i id="like-{{ book.id }}" class="fa fa-heart-o like" aria-hidden="true"></i>
+                            {% endif %}
                         {% else %}
-                            <i id="like-{{ book.id }}" class="fa fa-heart-o like" aria-hidden="true"></i>
+                                <i class="fa fa-heart-o like" aria-hidden="true" onclick="goToLogin()"></i>
                         {% endif %}
+
+
 
                         <span id="likes-count-{{ book.id }}">{{ book.likes.all|length }}</span>
 
@@ -60,10 +66,17 @@
                         <i class="ion-chatbox"></i>
                         <span id="likes-count-{{ book.id }}">{{ book.comments.all|length }}</span>
 
-                        {% if book|isBookmarked:request.user %}
-                            <i id="unbookmark-{{ book.id }}" class="fa fa-bookmark unbookmark" aria-hidden="true"></i>
+                        {% if request.user.is_authenticated %}
+                            {% if book|isBookmarked:request.user %}
+                                <i id="unbookmark-{{ book.id }}" class="fa fa-bookmark unbookmark"
+                                   aria-hidden="true"></i>
+                            {% else %}
+                                <i id="bookmark-{{ book.id }}" class="fa fa-bookmark-o bookmark" aria-hidden="true"></i>
+                            {% endif %}
+
                         {% else %}
-                            <i id="bookmark-{{ book.id }}" class="fa fa-bookmark-o bookmark" aria-hidden="true"></i>
+                            <i class="fa fa-bookmark-o bookmark" aria-hidden="true"
+                               onclick="goToLogin()"></i>
                         {% endif %}
 
 

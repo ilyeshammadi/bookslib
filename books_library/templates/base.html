@@ -85,6 +85,10 @@
     <script>
         // Remove the Django message after 5 seconds
         removeMessages();
+        function goToLogin() {
+            window.location.href = '{% url 'account_login' %}'
+        }
+
     </script>
 
 
