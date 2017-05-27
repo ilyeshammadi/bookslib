@@ -135,3 +135,41 @@ def book_dislike(request, id):
         res = Response({'message': 'error'})
         res.status_code = 400
         return res
+
+
+@api_view(['GET'])
+def book_bookmark(request, id):
+    """Take the id of the book to bookmark"""
+    try:
+        # Get the logged in user
+        user = request.user
+
+        # Get the Book to read
+        book = Book.objects.get(pk=id)
+
+        # If the book is in the user history
+        if user.history.books_action.filter(book=book).exists():
+            book_history = user.history.books_action.get(book=book)
+
+            if not book_history.bookmarked:
+                book_history.bookmarked = True
+                book_history.score += 1
+                book_history.save()
+
+            else:
+                res = Response({'message': "Can't bookmark a book more then one time"})
+                res.status_code = 400
+                return res
+        else:
+            book_history = BookHistory(book=book)
+            book_history.bookmarked = True
+            book_history.score += 1
+            book_history.save()
+            user.history.books_action.add(book_history)
+
+        return Response({'message': 'book {0} is bookmarked by the user {1}'.format(book.name, user.username)})
+
+    except:
+        res = Response({'message': 'error'})
+        res.status_code = 400
+        return res
