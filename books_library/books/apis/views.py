@@ -9,6 +9,7 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
+
 class BookSearchViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSearchSerializer
