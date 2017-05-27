@@ -20,10 +20,10 @@ class BookSerializer(serializers.HyperlinkedModelSerializer):
     categories = CategorySerializer()
     class Meta:
         model = Book
-        fields = ('name', 'description', 'author','categories', 'get_thulbnail','comments')
+        fields = ('id','slug','name', 'description', 'author','categories', 'link_to_pdf','get_thulbnail','comments', 'get_comments_count', 'get_likes_count')
 
 
 class BookSearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ('name', 'slug')
+        fields = ('id','name', 'slug')

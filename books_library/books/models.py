@@ -112,3 +112,15 @@ class Book(models.Model):
             return self.thumbnail
         else:
             return None
+
+    def get_comments_count(self):
+        if(self.comments.all() > 0):
+            return len(self.comments.all())
+        else:
+            return 0
+
+    def get_likes_count(self):
+        if(self.likes.all() > 0):
+            return len(self.likes.all())
+        else:
+            return 0
