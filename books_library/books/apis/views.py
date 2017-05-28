@@ -1,12 +1,15 @@
+from django.urls import reverse
 from rest_framework import viewsets, filters
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from books_library.books.apis.paginators import BookSearchSetPagination
 from books_library.navigation.models import BookHistory
+from books_library.navigation.sentiment import get_sentiment, POSITIVE
 from .serializers import BookSerializer, CommentSerializer, CategorySerializer, BookSearchSerializer
 from ..models import Book, Comment, Category
 
+from books_library.users.models import User
 
 class BookViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Book.objects.all()
@@ -173,3 +176,42 @@ def book_bookmark(request, id):
         res = Response({'message': 'error'})
         res.status_code = 400
         return res
+
+@api_view(['GET'])
+def add_comment(request):
+    try:
+        username = request.GET.get('username')
+        book_id = request.GET.get('book_id')
+        comment_content = request.GET.get('comment_content')
+
+        print('User {}'.format(username))
+        print('Book {}'.format(book_id))
+        print('Comment {}'.format(comment_content))
+
+        user = User.objects.get(username=username)
+        book = Book.objects.get(id=book_id)
+
+        comment = Comment(user=user, content=comment_content)
+        sentiment = get_sentiment(comment.content)
+        comment.sentiment = sentiment
+        comment.save()
+
+        book.comments.add(comment)
+
+        if sentiment == POSITIVE:
+            books_action = request.user.history.books_action.get(book=book)
+            books_action.score += 1
+            books_action.save()
+
+        book.comments.add(comment)
+
+        users = User.objects.filter(history__books_action__book=book).distinct().exclude(
+            username__exact=request.user.username)
+        link = reverse('books:detail', kwargs={'slug': book.slug}) + '#{0}'.format(comment.id)
+        content = 'has commented on {1}'.format(request.user.username, book.name)
+        for user in users:
+            user.notify(sender=request.user, content=content, link=link)
+
+        return Response({'status': 'success'})
+    except:
+        return Response({'status': 'error'})
