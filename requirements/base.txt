@@ -52,3 +52,5 @@ graphene-django==1.2.1
 tweepy==3.5.0
 djangorestframework==3.6.3
 Markdown==2.6.8
+djangorestframework-jwt==1.10.0
+django-grappelli==2.10.1

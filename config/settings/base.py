@@ -34,6 +34,7 @@ if READ_DOT_ENV_FILE:
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
     # Default Django apps:
+    'grappelli',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -179,6 +180,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 # Your stuff: custom template context processors go here
+                'django.template.context_processors.request'
             ],
         },
     },
@@ -288,3 +290,5 @@ REST_FRAMEWORK = {
 }
 
 ALLOWED_HOSTS = ['*']
+
+GRAPPELLI_ADMIN_TITLE = "BooksLib"
