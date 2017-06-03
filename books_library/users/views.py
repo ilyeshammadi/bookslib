@@ -197,10 +197,10 @@ def remove_twitter_data(request):
 @login_required
 def topics(request):
     # If has choosed topics before
-    # if request.user.history.has_chosed_topics:
-    #     return redirect('suggestion')
-    # else:
-    categories = Category.objects.all()
+    if request.user.history.has_chosed_topics:
+        return redirect('suggestion')
+    else:
+        categories = Category.objects.all()
     return render(request, 'users/topics.html', {'categories' : categories})
 
 @receiver(email_confirmed)
