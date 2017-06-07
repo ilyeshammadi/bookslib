@@ -10,6 +10,7 @@ from django.views.generic import CreateView, UpdateView, DetailView
 from django.contrib import messages
 
 from books_library.navigation.sentiment import get_sentiment, POSITIVE
+from books_library.recomendation.views import get_rec
 from books_library.users.models import User
 from .forms import BookForm, CommentCreateForm
 from .models import Book, Category
@@ -235,7 +236,13 @@ class BookDetailView(DetailView):
         context['form'] = CommentCreateForm()
 
         # Recommended books
-        context['rec_books'] = Book.objects.all()[:10]
+        try:
+            book_ids = get_rec(self.get_object().id)
+
+            context['rec_books'] = Book.objects.filter(id__in=book_ids)
+        except:
+            context['rec_books'] = Book.objects.all()[:10]
+
         return context
 
 class BookDetailReadView(BookDetailView):

@@ -1,4 +1,6 @@
+import json
 import random
+import requests
 
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -9,6 +11,7 @@ from taggit.models import Tag
 
 from books_library.books.models import Book, Category
 from books_library.navigation.models import BookHistory
+from books_library.recomendation.models import Recommender
 
 
 @login_required
@@ -39,3 +42,8 @@ def suggestion(request):
         'tags' : tags
     }
     return render(request, 'recomendation/suggestion.html', context)
+
+
+def get_rec(book_id):
+    rec = Recommender.objects.get(name='my-recommender')
+    return rec.similar_books(book_id=book_id)['payload']
