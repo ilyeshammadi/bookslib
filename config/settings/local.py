@@ -29,10 +29,15 @@ SECRET_KEY = env('DJANGO_SECRET_KEY', default='!sqr(X&G,H#vj[2&zmcF8MsbdSX^/.pE!
 # ------------------------------------------------------------------------------
 
 EMAIL_PORT = 1025
+#
+# EMAIL_HOST = 'localhost'
+# EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
+#                     default='django.core.mail.backends.console.EmailBackend')
 
-EMAIL_HOST = 'localhost'
-EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
-                    default='django.core.mail.backends.console.EmailBackend')
+
+EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+MAILGUN_ACCESS_KEY = 'key-68d4eae026bf6859e46799411be48c6e'
+MAILGUN_SERVER_NAME = 'sandbox117b3fade3aa4125a63977d3dddfb820.mailgun.org'
 
 
 # CACHING

@@ -77,6 +77,7 @@
 }
 
 #search-bar input {
+  width: 30vw;
   border-radius: 50px;
   padding-left: 35px;
   background-color: #F4F4F4;
@@ -91,7 +92,6 @@
 }
 
 #search-bar input:focus, #search-bar input:visited, #search-bar input:active {
-  width: 30vw;
   box-shadow: none !important;
   background-color: white;
 }
@@ -105,7 +105,7 @@
 }
 
 #notifications {
-  width: 33vw;
+  width: 400px;
   max-height: 40vh;
   overflow: auto;
 }
