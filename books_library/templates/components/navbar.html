@@ -92,11 +92,12 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{% url 'users:detail' request.user.username %}"><i
                                         class="ion-person"></i>{% trans "Profile" %}</a></li>
-                                <li><a class="nav-link" href="{% url 'about' %}"><i
-                                        class="ion-ios-help-outline"></i> {% trans "About" %}</a></li>
-                                <li role="separator" class="divider"></li>
                                 <li><a href="{% url 'users:update' %}"><i
                                         class="ion-ios-gear"></i> {% trans "Settings" %}</a></li>
+                                <li role="separator" class="divider"></li>
+
+                                <li><a class="nav-link" href="{% url 'about' %}"><i
+                                        class="ion-ios-help-outline"></i> {% trans "About" %}</a></li>
                                 <li><a class="nav-link" href="{% url 'account_logout' %}"> <i
                                         class="ion-reply"></i> {% trans "Sign Out" %}</a>
                                 </li>
