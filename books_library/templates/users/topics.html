@@ -54,6 +54,14 @@
             background-color: #009bcd;
         }
 
+        #loader-container {
+            height: 100vh;
+            width: 100vw;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
     </style>
 {% endblock %}
 
@@ -75,12 +83,23 @@
         });
 
         $('#confirm > button').click(function () {
+
+            // Hide all the topics
+            $("#topics").hide();
+            // Show loading animation
+            $("#loader-container").css({display: 'flex'});
+
             console.log(Array.from(cat_ids).join('-'));
 
             topic_ids = Array.from(cat_ids).join('-');
 
             $.post('/navigation/topics_add/', {'topic_ids': topic_ids}).done(function () {
                 window.location.href = '{% url 'suggestion' %}';
+            }).fail(function (err) {
+                $("#loader-container").hide();
+                $("#topics").show();
+                console.log(err);
+                showMessage("Error, can't validate your topics", ALERT_DANGER, false);
             });
         });
 
@@ -89,7 +108,7 @@
 
 
 {% block content %}
-    <div class="container">
+    <div id="topics" class="container">
         <h2>Choose Your Prefered Topics</h2>
         {% for category in categories %}
             <div class="row">
@@ -102,7 +121,6 @@
                     </div>
 
                 </div>
-
             </div>
         {% endfor %}
 
@@ -111,4 +129,9 @@
         </div>
 
     </div>
+
+    <div id="loader-container">
+        <div class="loader"></div>
+    </div>
+
 {% endblock %}
