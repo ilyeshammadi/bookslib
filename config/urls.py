@@ -11,7 +11,7 @@ from graphene_django.views import GraphQLView
 from rest_framework import routers
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 
-from books_library.books.apis.views import BookViewSet, CommentViewSet, CategoryViewSet, BookSearchViewSet, book_like, book_dislike, book_bookmark, add_comment
+from books_library.books.apis.views import BookViewSet, BookSimilarViewSet,CommentViewSet, CategoryViewSet, BookSearchViewSet, book_like, book_dislike, book_bookmark, add_comment
 from books_library.recomendation.views import suggestion
 from books_library.graphql_api.schema import schema
 from books_library.graphql_api.views import PrivateGraphQLView
@@ -62,7 +62,7 @@ urlpatterns = [
     url(r'api/book/dislike/(?P<id>\d+)/$', view=book_dislike, name='api_book_dislike'),
     url(r'api/book/bookmark/(?P<id>\d+)/$', view=book_bookmark, name='api_book_bookmark'),
     url(r'api/book/comment/$', view=add_comment, name='api_add_comment'),
-
+    url(r'api/book/similar/$', view=BookSimilarViewSet.as_view({'get': 'list'}), name='api_book_similar'),
 
 
     # DRF API

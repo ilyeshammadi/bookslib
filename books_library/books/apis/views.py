@@ -6,7 +6,9 @@ from rest_framework.response import Response
 from books_library.books.apis.paginators import BookSearchSetPagination
 from books_library.navigation.models import BookHistory
 from books_library.navigation.sentiment import get_sentiment, POSITIVE
-from .serializers import BookSerializer, CommentSerializer, CategorySerializer, BookSearchSerializer
+from books_library.recomendation.views import get_rec
+from .serializers import BookSerializer, CommentSerializer, CategorySerializer, BookSearchSerializer, \
+    BookSimilarSerializer
 from ..models import Book, Comment, Category
 
 from books_library.users.models import User
@@ -50,6 +52,19 @@ class BookSearchViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('^name', '$name')
 
+class BookSimilarViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+    def get_queryset(self):
+        books = super(BookSimilarViewSet, self).get_queryset()
+
+        try:
+            book_id = self.request.GET.get('book_id')
+            book_ids = get_rec(book_id)
+            return books.filter(id__in=book_ids)
+        except:
+            return books.all()[:10]
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()

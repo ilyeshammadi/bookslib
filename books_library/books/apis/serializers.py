@@ -44,3 +44,8 @@ class BookSearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ('id', 'name', 'slug')
+
+class BookSimilarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = ('id', 'name', 'slug', 'get_thulbnail')
