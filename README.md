@@ -5,7 +5,11 @@ A platform to read and share books with other users, the platform tracks users a
 
 This project is part of my Bachelor thesis and the complete thesis can be found a this [link](https://www.slideshare.net/slideshow/embed_code/key/vTsPgSstHm3oI3).
 
+## Screenshots
+
 ![](https://github.com/Ilyes-Hammadi/bookslib/blob/master/docs/img/platform.png)
+![](https://github.com/Ilyes-Hammadi/bookslib/blob/master/docs/img/book_detail.png)
+![](https://github.com/Ilyes-Hammadi/bookslib/blob/master/docs/img/user_follow.png)
 
 ## Settings
 Clone the project locally
