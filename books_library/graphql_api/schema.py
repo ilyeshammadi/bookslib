@@ -4,7 +4,7 @@ from graphene_django.filter import DjangoFilterConnectionField
 
 
 from .schemas.users import UserNode
-from .schemas.books import BookNode, CategoryNode
+from .schemas.books import BookNode, CategoryNode, CommentNode
 from .schemas.navigation import SearchNode, BookHistoryNode, HistoryNode, SocialDataNode
 
 class Query(ObjectType):
@@ -27,6 +27,10 @@ class Query(ObjectType):
     # Book History
     book_history = graphene.Field(BookHistoryNode, id=graphene.Int())
     all_books_history = DjangoFilterConnectionField(BookHistoryNode)
+
+    # Book Comment
+    comment = graphene.Field(CommentNode, id=graphene.Int())
+    all_comment = DjangoFilterConnectionField(CommentNode)
 
     # Book History
     social_data = graphene.Field(SocialDataNode, id=graphene.Int())
