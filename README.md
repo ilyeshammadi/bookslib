@@ -43,6 +43,22 @@ Create a superuser
 $ python manage.py createsuperuser
 ```
 
+### Fake Data
+You can insert thousands of data collected from the [Book-Crossing Dataset](http://www2.informatik.uni-freiburg.de/~cziegler/BX/)
+```shell
+$ python insert.py
+```
+
+## Acces the API
+This project include two kind of API
+- GraphQL API ==> `/graphql`
+- Django Rest Framework API ==> `/api`
+
+The GraphQL API is used to expose the collected data so that they can consumed by the recommedation engine.
+
+The DRF API is consumed by frontend appilications (AJAX, Android), it includes JWT for remote authentification.
+
+
 ## Deployment
 The following details how to deploy this application.
 
