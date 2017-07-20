@@ -3,6 +3,7 @@
 
 A platform to read and share books with other users, the platform tracks users activity on the platform. The collected data is exposed as a GraphQL API for future application like integrating a recommendation engine.
 
+This project is part of my Bachelor thesis and the complete thesis can be found a this [link](https://www.slideshare.net/slideshow/embed_code/key/vTsPgSstHm3oI3).
 
 ![](https://github.com/Ilyes-Hammadi/bookslib/blob/master/docs/img/platform.png)
 
