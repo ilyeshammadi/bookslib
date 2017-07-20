@@ -4,12 +4,7 @@
 A platform to read and share books with other users, the platform tracks users activity on the platform. The collected data is exposed as a GraphQL API for future application like integrating a recommendation engine.
 
 
-.. image:: https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg
-     :target: https://github.com/pydanny/cookiecutter-django/
-     :alt: Built with Cookiecutter Django
-
-
-:License: MIT
+![](https://github.com/Ilyes-Hammadi/bookslib/blob/master/docs/img/platform.png)
 
 ## Settings
 Clone the project locally
