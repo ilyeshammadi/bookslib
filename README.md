@@ -69,4 +69,5 @@ See detailed [cookiecutter-django Heroku documentation](http://cookiecutter-djan
 See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html)
 
 
-
+## License
+[MIT](https://github.com/Ilyes-Hammadi/bookslib/blob/master/LICENSE)
