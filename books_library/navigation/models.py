@@ -28,10 +28,29 @@ class BookHistory(models.Model):
     liked = models.BooleanField(default=False)
     bookmarked = models.BooleanField(default=False)
 
-    score = models.IntegerField(default=0)
+    # Score as a private variable
+    sc = models.IntegerField(default=0)
 
     created = models.DateTimeField(auto_now_add=True, editable=False)
     last_updated = models.DateTimeField(auto_now=True, editable=False)
+
+    @property
+    def score(self):
+        """
+            Getter for the sc field
+            >>> model.score
+            # 2
+        """
+        return self.sc
+
+    @score.setter
+    def score(self, score):
+        """
+            Setter for the sc field
+            >>> model.score = 2
+        """
+        if 0 < score and score <= 10:
+            self.sc = score
 
     def __str__(self):
         return "id: {0} book: {1}".format(self.id, self.book.slug)
