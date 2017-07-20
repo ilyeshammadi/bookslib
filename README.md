@@ -13,6 +13,16 @@ This project is part of my Bachelor thesis and the complete thesis can be found 
 ### User profile
 ![](https://github.com/Ilyes-Hammadi/bookslib/blob/master/docs/img/user_follow.png)
 
+
+## Features
+This are the most important features in the platform:
+- Users can join the platform to read books
+- Social Authentification
+- User can follow each other
+- Include two types of APIs (GraphQL, DRF)
+- Collected user data from the platform and there twitter account
+- Can plugin recommendation engine
+
 ## Settings
 Clone the project locally
 ```shell
@@ -52,7 +62,7 @@ $ python insert.py
 ```
 
 ## Acces the API
-This project include two kind of API
+This project include two kind of APIs:
 - GraphQL API ==> `/graphql`
 - Django Rest Framework API ==> `/api`
 
