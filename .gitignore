@@ -79,4 +79,4 @@ venv/
 
 .vscode/
 
-BX-CSV-Dump/
+BX-CSV-Dump*

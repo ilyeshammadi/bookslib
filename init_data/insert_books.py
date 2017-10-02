@@ -9,7 +9,10 @@ sys.setdefaultencoding('utf-8')
 from books_library.books.models import Book, Category
 from random import randint
 
+books = get_books()
+
 print('Start inserting books...')
+
 
 
 lorems = [
@@ -32,7 +35,7 @@ tags = [
     'history'
 ]
 
-books = get_books()
+
 
 categories = Category.objects.all()
 

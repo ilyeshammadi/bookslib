@@ -6,7 +6,7 @@ from books_library.users.models import User
 from books_library.navigation.models import BookHistory
 
 
-
+print('Start inserting ratings...')
 users = User.objects.all()
 books = Book.objects.all()[:100]
 
@@ -22,3 +22,5 @@ for user in users:
             book_actions = BookHistory(book=book, score=randint(1, 8))
             book_actions.save()
             user.history.books_action.add(book_actions)
+
+print('Finished inserting ratings')

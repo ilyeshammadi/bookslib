@@ -55,3 +55,6 @@ Markdown==2.6.8
 djangorestframework-jwt==1.10.0
 django-grappelli==2.10.1
 django-mailgun==0.9.1
+pandas==0.20.3
+django-extensions==1.9.1
+pgcli==1.8.1

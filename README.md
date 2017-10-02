@@ -58,7 +58,7 @@ $ python manage.py createsuperuser
 ### Fake Data
 You can insert thousands of data collected from the [Book-Crossing Dataset](http://www2.informatik.uni-freiburg.de/~cziegler/BX/)
 ```shell
-$ python insert.py
+$ python manage.py shell < insert.py
 ```
 
 ## Acces the API
